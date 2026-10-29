@@ -10,8 +10,12 @@ import androidx.navigation.compose.rememberNavController
 import com.bintangg.finalproject.components.CustomBottomNavigationBar
 import com.bintangg.finalproject.screens.AddCategoryScreen
 import com.bintangg.finalproject.screens.AddRoleScreen
+import com.bintangg.finalproject.screens.AddScheduleScreen
 import com.bintangg.finalproject.screens.AddTaskBottomSheetScreen
+import com.bintangg.finalproject.screens.CreateAccountScreen
 import com.bintangg.finalproject.screens.DashboardScreen
+import com.bintangg.finalproject.screens.EditScheduleScreen
+import com.bintangg.finalproject.screens.EditTaskScreen
 import com.bintangg.finalproject.screens.StudyProgressScreen
 import com.bintangg.finalproject.screens.TaskListScreen
 
@@ -34,7 +38,11 @@ fun AppNavigation() {
             composable("StudyProgress") { StudyProgressScreen(navController ) }
             composable("TaskList") { TaskListScreen(navController) }
             composable("AddRoleScreen") { AddRoleScreen(navController) }
-            composable( "AddCategoryScreen") { AddCategoryScreen(navController) }
+            composable("AddCategoryScreen") { AddCategoryScreen(navController) }
+            composable("EditSchedule") { EditScheduleScreen(navController) }
+            composable("CreateAccount") { CreateAccountScreen(navController) }
+            composable("AddSchedule") { AddScheduleScreen(navController) }
+            composable("EditTask") { EditTaskScreen(navController) }
         }
     }
 }

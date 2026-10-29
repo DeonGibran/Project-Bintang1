@@ -25,9 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun AddScheduleScreen() {
+fun AddScheduleScreen(navController: NavController) {
     // State untuk form
     var namaTugas by remember { mutableStateOf("Sprint Planning & Review Q4") }
     var keterangan by remember { mutableStateOf("") }
@@ -431,5 +433,5 @@ fun AuditRowItem(label: String, value: String, isHighlight: Boolean = false, pri
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AddScheduleScreenPreview() {
-    AddScheduleScreen()
+    AddScheduleScreen(rememberNavController())
 }
