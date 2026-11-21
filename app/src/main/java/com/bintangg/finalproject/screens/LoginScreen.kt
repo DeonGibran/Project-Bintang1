@@ -1,8 +1,6 @@
 package com.bintangg.finalproject.screens
 
 import androidx.compose.foundation.BorderStroke
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -36,12 +34,12 @@ enum class LoginRole {
 }
 
 @Composable
-fun LoginScreen(navController: NavController,
+fun LoginScreen(
+    onRegisterRedirectClicked: () -> Unit,
     onLoginClicked: (String, String, LoginRole) -> Unit = { _, _, _ -> },
     onGoogleLoginClicked: () -> Unit = {},
     onAppleLoginClicked: () -> Unit = {},
-    onForgotPasswordClicked: () -> Unit = {},
-    onRegisterRedirectClicked: () -> Unit = {}
+    onForgotPasswordClicked: () -> Unit = {}
 ) {
     var selectedRole by remember { mutableStateOf(LoginRole.SISWA) }
     var email by remember { mutableStateOf("") }
@@ -449,5 +447,5 @@ fun LoginScreen(navController: NavController,
 @Preview(showBackground = true, widthDp = 392, heightDp = 800)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(rememberNavController())
+    LoginScreen(onRegisterRedirectClicked = {})
 }

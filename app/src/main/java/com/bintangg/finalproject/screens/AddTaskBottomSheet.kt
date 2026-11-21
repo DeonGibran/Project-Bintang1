@@ -46,8 +46,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.bintangg.finalproject.components.CustomInputField
 import com.bintangg.finalproject.components.PriorityBox
 import com.bintangg.finalproject.data.Task
@@ -61,7 +59,7 @@ val TextPlaceholderGrey = Color(0xFF94A3B8)
 val BorderGrey = Color(0xFFE2E8F0)
 val DragHandleGrey = Color(0xFFCBD5E1)
 @Composable
-fun AddTaskBottomSheetScreen(navController: NavController) {
+fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
     val scope = rememberCoroutineScope ()
     var title by remember { mutableStateOf(value = "")  }
     var subject by remember { mutableStateOf("") }
@@ -111,7 +109,7 @@ fun AddTaskBottomSheetScreen(navController: NavController) {
                     color = TextDark
                 )
                 IconButton(
-                    onClick = { navController.popBackStack() },
+                    onClick = { onBack() },
                     modifier = Modifier.size(24.dp)
                 ) {
                     Icon(
@@ -222,7 +220,7 @@ fun AddTaskBottomSheetScreen(navController: NavController) {
                                     priority = priority
                                 )
                             )
-                            navController.popBackStack()
+                            onBack()
                         } catch (error: Exception) {
                             errorMessage = error.message ?: "Data gagal disimpan ke Supabase."
                         } finally {
@@ -263,5 +261,5 @@ fun AddTaskBottomSheetScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun AddTaskBottomSheetScreenPreview() {
-    AddTaskBottomSheetScreen(rememberNavController())
+    AddTaskBottomSheetScreen(onBack = {})
 }

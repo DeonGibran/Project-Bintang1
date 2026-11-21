@@ -22,11 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun CategoryListScreen(navController: NavController) {
+fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedTab by remember { mutableStateOf("Semua (5)") }
 
@@ -136,7 +134,8 @@ fun CategoryListScreen(navController: NavController) {
                     tagColor = Color(0xFFD32F2F),
                     tagBgColor = Color(0xFFFFEBEE),
                     badgeCount = "8 Tugas",
-                    iconColor = Color(0xFF2962FF)
+                    iconColor = Color(0xFF2962FF),
+                    onEditCategory = onEditCategory
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -148,7 +147,8 @@ fun CategoryListScreen(navController: NavController) {
                     tagColor = Color.White,
                     tagBgColor = Color(0xFF1565C0),
                     badgeCount = "4 Tugas",
-                    iconColor = Color(0xFF1565C0)
+                    iconColor = Color(0xFF1565C0),
+                    onEditCategory = onEditCategory
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -160,7 +160,8 @@ fun CategoryListScreen(navController: NavController) {
                     tagColor = Color(0xFF1565C0),
                     tagBgColor = Color(0xFFE8F0FE),
                     badgeCount = "6 Tugas",
-                    iconColor = Color(0xFF00ACC1)
+                    iconColor = Color(0xFF00ACC1),
+                    onEditCategory = onEditCategory
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -172,7 +173,8 @@ fun CategoryListScreen(navController: NavController) {
                     tagColor = Color(0xFF1565C0),
                     tagBgColor = Color(0xFFE8F0FE),
                     badgeCount = "2 Tugas",
-                    iconColor = Color(0xFF5E35B1)
+                    iconColor = Color(0xFF5E35B1),
+                    onEditCategory = onEditCategory
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -186,7 +188,8 @@ fun CategoryListScreen(navController: NavController) {
                     badgeCount = "Draft",
                     isDraftBadge = true,
                     iconColor = Color(0xFFC62828),
-                    cardBg = Color(0xFFFFF8F8)
+                    cardBg = Color(0xFFFFF8F8),
+                    onEditCategory = onEditCategory
                 )
 
                 // Ruang kosong bawah agar tidak tertutup tombol Floating
@@ -201,7 +204,7 @@ fun CategoryListScreen(navController: NavController) {
                 contentAlignment = Alignment.BottomEnd
             ) {
                 FloatingActionButton(
-                    onClick = { /* Aksi Tambah */ },
+                    onClick = onAddCategory,
                     containerColor = primaryBlue,
                     contentColor = Color.White,
                     shape = CircleShape
@@ -251,7 +254,8 @@ fun KategoriCard(
     badgeCount: String,
     isDraftBadge: Boolean = false,
     iconColor: Color,
-    cardBg: Color = Color.White
+    cardBg: Color = Color.White,
+    onEditCategory: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(12.dp),
@@ -349,7 +353,7 @@ fun KategoriCard(
                     tint = Color.Gray,
                     modifier = Modifier
                         .size(20.dp)
-                        .clickable { /* Aksi opsi */ }
+                        .clickable(onClick = onEditCategory)
                 )
             }
         }
@@ -359,5 +363,5 @@ fun KategoriCard(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CategoryListScreenPreview() {
-    CategoryListScreen(rememberNavController())
+    CategoryListScreen(onAddCategory = {}, onEditCategory = {})
 }

@@ -34,8 +34,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 val PrimaryIndigo = Color(0xFF4F46E5)
 val LightIndigoBg = Color(0xFFEEF2FF)
@@ -48,9 +46,9 @@ enum class UserRole {
 }
 
 @Composable
-fun CreateAccountScreen(navController: NavController,
-    onRegisterClicked: (String, String, String, UserRole) -> Unit = { _, _, _, _ -> },
-    onLoginClicked: () -> Unit = {}
+fun CreateAccountScreen(
+    onLoginClicked: () -> Unit,
+    onRegisterClicked: (String, String, String, UserRole) -> Unit = { _, _, _, _ -> }
 ) {
     var selectedRole by remember { mutableStateOf(UserRole.TEACHER) }
     var fullName by remember { mutableStateOf("") }
@@ -538,5 +536,5 @@ fun PasswordStrengthIndicator(password: String) {
 @Preview(showBackground = true, widthDp = 392, heightDp = 850)
 @Composable
 fun CreateAccountScreenPreview() {
-    CreateAccountScreen(rememberNavController())
+    CreateAccountScreen(onLoginClicked = {})
 }

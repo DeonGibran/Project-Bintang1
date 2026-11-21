@@ -19,11 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun EditTaskScreen(navController: NavController) {
+fun EditTaskScreen(onBack: () -> Unit) {
     var judulTugas by remember { mutableStateOf("Tugas Fisika Dasar") }
     var mataPelajaran by remember { mutableStateOf("Fisika Dasar") }
     var tanggalMulai by remember { mutableStateOf("20/04/2024") }
@@ -62,7 +60,7 @@ fun EditTaskScreen(navController: NavController) {
                     contentDescription = "Tutup",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { /* Aksi tutup */ },
+                        .clickable { onBack() },
                     tint = Color.Black
                 )
             }
@@ -251,5 +249,5 @@ fun PriorityChip(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun EditTaskScreenPreview() {
-    EditTaskScreen(rememberNavController())
+    EditTaskScreen(onBack = {})
 }

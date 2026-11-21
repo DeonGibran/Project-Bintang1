@@ -21,11 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun EditRoleScreen(navController: NavController) {
+fun EditRoleScreen(onBack: () -> Unit) {
     // State untuk form
     var namaPeran by remember { mutableStateOf("Product Auditor") }
     var deskripsiSingkat by remember { mutableStateOf("Bertanggung jawab mengaudit transaksi dan data operasional tim.") }
@@ -67,7 +65,7 @@ fun EditRoleScreen(navController: NavController) {
                         contentDescription = "Kembali",
                         modifier = Modifier
                             .size(24.dp)
-                            .clickable { navController.popBackStack() }
+                            .clickable { onBack() }
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
@@ -228,7 +226,7 @@ fun EditRoleScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(
-                        onClick = { /* Aksi Batal */ },
+                        onClick = { onBack() },
                         modifier = Modifier
                             .weight(1f)
                             .height(48.dp),
@@ -296,5 +294,5 @@ fun LevelChip(
 @Preview
 @Composable
 fun EditRoleScreenPreview() {
-    EditRoleScreen(rememberNavController())
+    EditRoleScreen(onBack = {})
 }

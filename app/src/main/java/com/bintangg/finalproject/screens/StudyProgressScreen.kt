@@ -41,8 +41,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.bintangg.finalproject.components.SubjectItem
 
 // -- Palet Warna --
@@ -55,7 +53,7 @@ val IconBgLight = Color(0xFFF0F4F9)       // Warna background icon kotak
 val IconBlueGray = Color(0xFF4A6583)      // Warna icon di dalam kotak
 
 @Composable
-fun StudyProgressScreen(navController: NavController) {
+fun StudyProgressScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -191,5 +189,5 @@ fun StudyProgressScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun StudyProgressScreenPreview() {
-    StudyProgressScreen(rememberNavController())
+    StudyProgressScreen()
 }

@@ -22,11 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun EditCategoryScreen(navController: NavController) {
+fun EditCategoryScreen(onBack: () -> Unit) {
     var namaKategori by remember { mutableStateOf("Matematika Tingkat Lanjut") }
     var keterangan by remember {
         mutableStateOf("Materi kalkulus, aljabar linear, dan trigonometri untuk siswa SMA & persiapan ujian masuk kuliah.")
@@ -57,7 +55,7 @@ fun EditCategoryScreen(navController: NavController) {
                     contentDescription = "Kembali",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { navController.popBackStack() }
+                        .clickable { onBack() }
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -259,7 +257,7 @@ fun EditCategoryScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 OutlinedButton(
-                    onClick = { navController.popBackStack() },
+                    onClick = { onBack() },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
@@ -290,8 +288,8 @@ fun EditCategoryScreen(navController: NavController) {
     }
 }
 
-/*@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun EditCategoryScreenPreview() {
-    EditCategoryScreen(rememberNavController())
-} */
+    EditCategoryScreen(onBack = {})
+}

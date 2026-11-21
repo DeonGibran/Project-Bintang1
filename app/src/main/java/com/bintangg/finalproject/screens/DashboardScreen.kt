@@ -28,14 +28,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
-private val AppBg = Color(0xFF070B17)
-private val Panel = Color(0xFF10192A)
-private val Panel2 = Color(0xFF1A2638)
+val AppBg = Color(0xFF070B17)
+val PubBlue = Color(0xFF1B2048)
+val Panel = Color(0xFF10192A)
+val Panel2 = Color(0xFF1A2638)
 private val Border = Color(0xFF273449)
-private val MainText = Color(0xFFF5F7FF)
+val MainText = Color(0xFFF5F7FF)
 private val Muted = Color(0xFF9AAAC3)
 private val Purple = Color(0xFF5544E8)
 private val Blue = Color(0xFF818BFF)
@@ -63,7 +62,17 @@ val StatusGrey = Color(0xFFCBD5E1)
 val StatusLightGrey = Color(0xFFE2E8F0)
 
 @Composable
-fun DashboardScreen(navController: NavController) {
+fun DashboardScreen(
+    onOpenTasks: () -> Unit,
+    onEditSchedule: () -> Unit,
+    onAddCategory: () -> Unit,
+    onAddRole: () -> Unit,
+    onCreateAccount: () -> Unit,
+    onAddSchedule: () -> Unit,
+    onAddTask: () -> Unit,
+    onEditTask: () -> Unit,
+    onOpenCategories: () -> Unit
+) {
     Surface(modifier = Modifier.fillMaxSize(), color = AppBg) {
         Box(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = 90.dp)) {
@@ -82,32 +91,36 @@ fun DashboardScreen(navController: NavController) {
                 }
                 HorizontalDivider(color = Border.copy(alpha = .65f))
                 Row(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 18.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    SummaryCard(Modifier.weight(1f), "12", "Pending Tasks", Icons.Default.Checklist, Blue, Color(0xFF1B2048), Color(0xFF34366F)) { navController.navigate("TaskList") }
-                    SummaryCard(Modifier.weight(1f), "4", "Today's Schedules", Icons.Default.CalendarMonth, Green, Color(0xFF0D2B31), Color(0xFF15504C)) { navController.navigate("EditSchedule") }
+                    SummaryCard(Modifier.weight(1f), "12", "Pending Tasks", Icons.Default.Checklist, Blue, Color(0xFF1B2048), Color(0xFF34366F), onOpenTasks)
+                    SummaryCard(Modifier.weight(1f), "4", "Today's Schedules", Icons.Default.CalendarMonth, Green, Color(0xFF0D2B31), Color(0xFF15504C), onEditSchedule)
                 }
                 SectionHeader("QUICK ACTIONS & SHORTCUTS", Modifier.padding(horizontal = 20.dp))
                 Column(Modifier.padding(horizontal = 18.dp).padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        ActionTile(Modifier.weight(1f), "Add Category", Icons.Default.Folder, Blue, Color(0xFF242D50)) { navController.navigate("AddCategoryScreen") }
-                        ActionTile(Modifier.weight(1f), "Add Role", Icons.Default.Groups, Amber, Color(0xFF34352F)) { navController.navigate("AddRoleScreen") }
+                        ActionTile(Modifier.weight(1f), "Add Category", Icons.Default.Folder, Blue, Color(0xFF242D50), onAddCategory)
+                        ActionTile(Modifier.weight(1f), "Add Role", Icons.Default.Groups, Amber, Color(0xFF34352F), onAddRole)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        ActionTile(Modifier.weight(1f), "Create Account", Icons.Default.PersonAdd, Color(0xFFC18AFF), Color(0xFF302747)) { navController.navigate("CreateAccount") }
-                        ActionTile(Modifier.weight(1f), "Add Schedule", Icons.Default.CalendarMonth, Green, Color(0xFF153A3B)) { navController.navigate("AddSchedule") }
+                        ActionTile(Modifier.weight(1f), "Create Account", Icons.Default.PersonAdd, Color(0xFFC18AFF), Color(0xFF302747), onCreateAccount)
+                        ActionTile(Modifier.weight(1f), "Add Schedule", Icons.Default.CalendarMonth, Green, Color(0xFF153A3B), onAddSchedule)
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        ActionTile(Modifier.weight(1f), "Categories", Icons.Default.Folder, Blue, Color(0xFF242D50), onOpenCategories)
+                        Spacer(Modifier.weight(1f))
                     }
                 }
                 Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 12.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     SectionHeader("UPCOMING TASKS")
-                    Text("+ New Task", color = Blue, fontSize = 12.sp, modifier = Modifier.clip(RoundedCornerShape(6.dp)).clickable { navController.navigate("AddTask") }.padding(4.dp))
+                    Text("+ New Task", color = Blue, fontSize = 12.sp, modifier = Modifier.clip(RoundedCornerShape(6.dp)).clickable(onClick = onAddTask).padding(4.dp))
                 }
                 Column(Modifier.padding(horizontal = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    TaskPreview("Final Project Submission", "Mobile App Development • High", "Today", Red) { navController.navigate("EditTask") }
-                    TaskPreview("Database Schema Review", "Backend Engineering • Medium", "Tomorrow", Amber) { navController.navigate("TaskList") }
+                    TaskPreview("Final Project Submission", "Mobile App Development • High", "Today", Red, onEditTask)
+                    TaskPreview("Database Schema Review", "Backend Engineering • Medium", "Tomorrow", Amber, onOpenTasks)
                 }
                 Spacer(Modifier.height(22.dp))
             }
             FloatingActionButton(
-                onClick = { navController.navigate("AddTask") },
+                onClick = onAddTask,
                 modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 12.dp).size(56.dp),
                 containerColor = Purple, contentColor = Color.White, shape = CircleShape
             ) { Icon(Icons.Default.Add, contentDescription = "Add new task", modifier = Modifier.size(28.dp)) }
@@ -167,5 +180,15 @@ private fun TaskPreview(title: String, subtitle: String, due: String, accent: Co
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DashBoardScreenPreview() {
-    DashboardScreen(rememberNavController() )
+    DashboardScreen(
+        onOpenTasks = {},
+        onEditSchedule = {},
+        onAddCategory = {},
+        onAddRole = {},
+        onCreateAccount = {},
+        onAddSchedule = {},
+        onAddTask = {},
+        onEditTask = {},
+        onOpenCategories = {}
+    )
 }

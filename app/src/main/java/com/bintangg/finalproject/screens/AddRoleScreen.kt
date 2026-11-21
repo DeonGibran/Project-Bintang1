@@ -21,11 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun AddRoleScreen(navController: NavController) {
+fun AddRoleScreen(onBack: () -> Unit) {
     // State untuk form
     var namaPeran by remember { mutableStateOf("Product Auditor") }
     var deskripsiSingkat by remember { mutableStateOf("Bertanggung jawab mengaudit transaksi dan data operasional tim.") }
@@ -40,13 +38,13 @@ fun AddRoleScreen(navController: NavController) {
     val primaryPurple = Color(0xFF6750A4) // Perbaikan: Warna ungu utama yang valid
     val backgroundLight = Color(0xFFF8F9FA)
 
-    Scaffold(
-        containerColor = Color.White
-    ) { paddingValues ->
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppBg
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
         ) {
             // Konten yang bisa di-scroll
             Column(
@@ -67,14 +65,15 @@ fun AddRoleScreen(navController: NavController) {
                         contentDescription = "Kembali",
                         modifier = Modifier
                             .size(24.dp)
-                            .clickable { navController.popBackStack() }
+                            .clickable { onBack() },
+                        tint = Color.White
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
                         text = "Tambah Peran Baru",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = Color.White
                     )
                 }
 
@@ -83,17 +82,17 @@ fun AddRoleScreen(navController: NavController) {
                     text = "Informasi Peran",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.White
                 )
                 Text(
                     text = "Atur profil peran dan tentukan batas akses otorisasi sistem.",
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = Color.LightGray,
                     modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
                 )
 
                 // Input Nama Peran
-                Text(text = "Nama Peran", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.DarkGray)
+                Text(text = "Nama Peran", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = namaPeran,
@@ -104,7 +103,8 @@ fun AddRoleScreen(navController: NavController) {
                         focusedBorderColor = primaryPurple,
                         unfocusedBorderColor = Color.LightGray,
                         focusedContainerColor = backgroundLight,
-                        unfocusedContainerColor = backgroundLight
+                        unfocusedContainerColor = Panel,
+                        unfocusedTextColor = Color.White
                     ),
                     singleLine = true
                 )
@@ -112,7 +112,7 @@ fun AddRoleScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Input Deskripsi Singkat
-                Text(text = "Deskripsi Singkat", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.DarkGray)
+                Text(text = "Deskripsi Singkat", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = deskripsiSingkat,
@@ -125,14 +125,15 @@ fun AddRoleScreen(navController: NavController) {
                         focusedBorderColor = primaryPurple,
                         unfocusedBorderColor = Color.LightGray,
                         focusedContainerColor = backgroundLight,
-                        unfocusedContainerColor = backgroundLight
+                        unfocusedContainerColor = Panel,
+                        unfocusedTextColor = Color.White
                     )
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Level Akses Chips
-                Text(text = "Level Akses", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.DarkGray)
+                Text(text = "Level Akses", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -142,7 +143,7 @@ fun AddRoleScreen(navController: NavController) {
                         title = "Admin",
                         icon = Icons.Default.Person,
                         isSelected = selectedLevel == "Admin",
-                        primaryColor = Color(0xFF1976D2),
+                        primaryColor = Color(0xFF1B2048),
                         onClick = { selectedLevel = "Admin" }
                     )
                     LevelChip1(
@@ -228,7 +229,7 @@ fun AddRoleScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedButton(
-                        onClick = { /* Aksi Batal */ },
+                        onClick = { onBack() },
                         modifier = Modifier
                             .weight(1f)
                             .height(48.dp),
@@ -265,7 +266,7 @@ fun LevelChip1(
     primaryColor: Color,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (isSelected) primaryColor else Color(0xFFF2F3F7)
+    val backgroundColor = if (isSelected) primaryColor else Panel
     val contentColor = if (isSelected) Color.White else Color.DarkGray
 
     Row(
@@ -306,7 +307,7 @@ fun PermissionCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFFF8F9FA))
+            .background(Color(0xFF10192A))
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -321,8 +322,8 @@ fun PermissionCard(
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-            Text(text = subtitle, fontSize = 11.sp, color = Color.Gray)
+            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text(text = subtitle, fontSize = 11.sp, color = Color.White)
         }
         Checkbox(
             checked = checked,
@@ -338,5 +339,5 @@ fun PermissionCard(
 @Preview
 @Composable
 fun AddRoleScreenPreview() {
-    AddRoleScreen(rememberNavController())
+    AddRoleScreen(onBack = {})
 }

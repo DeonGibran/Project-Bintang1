@@ -17,14 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.bintangg.finalproject.data.Category
 import com.bintangg.finalproject.data.CategoryRepository
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddCategoryScreen(navController: NavController) {
+fun AddCategoryScreen(onBack: () -> Unit) {
     // 1. Inisialisasi Coroutine Scope untuk eksekusi fungsi suspend
     val coroutineScope = rememberCoroutineScope()
 
@@ -61,7 +59,7 @@ fun AddCategoryScreen(navController: NavController) {
                     contentDescription = "Kembali",
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { navController.popBackStack() }
+                        .clickable { onBack() }
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -164,7 +162,7 @@ fun AddCategoryScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         OutlinedButton(
-                            onClick = { navController.popBackStack() },
+                            onClick = { onBack() },
                             enabled = !isSaving,
                             modifier = Modifier
                                 .weight(1f)
@@ -191,7 +189,7 @@ fun AddCategoryScreen(navController: NavController) {
                                         CategoryRepository.addCategory(newCategory)
 
                                         // 6. Jika berhasil, tutup form dan kembali
-                                        navController.popBackStack()
+                                        onBack()
                                     } catch (e: Exception) {
                                         errorMessage = "Gagal menyimpan: \${e.localizedMessage}"
                                     } finally {
@@ -231,5 +229,5 @@ fun AddCategoryScreen(navController: NavController) {
 @Preview
 @Composable
 fun AddCategoryScreenPreview() {
-    AddCategoryScreen(rememberNavController())
+    AddCategoryScreen(onBack = {})
 }
