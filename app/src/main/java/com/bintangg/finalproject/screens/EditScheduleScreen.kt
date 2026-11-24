@@ -10,10 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
@@ -29,29 +27,24 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun EditScheduleScreen(onBack: () -> Unit) {
-    // State untuk form
     var namaTugas by remember { mutableStateOf("Sprint Planning & Review Q4") }
     var keterangan by remember { mutableStateOf("Tambahkan catatan khusus, tautan dokumen, atau instruksi rapat...") }
     var selectedStatus by remember { mutableStateOf("Dijadwalkan") }
 
-    val primaryPurple = Color(0xFF5C3399) // Warna ungu utama
-    val backgroundLight = Color(0xFFF8F9FA)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = AppBg // Pengganti containerColor
+        color = AppBg
     ) {
         Column(
-            modifier = Modifier.fillMaxSize() // padding(paddingValues) dihapus
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Konten utama yang bisa di-scroll
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
-                // Custom Header (Tanpa TopAppBar)
+                // Custom Header
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -66,23 +59,24 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             modifier = Modifier
                                 .size(24.dp)
                                 .clickable { onBack() },
-                            tint = Color.White
+                            tint = MainText
                         )
                         Spacer(modifier = Modifier.width(16.dp))
                         Text(
                             text = "Edit\nSchedule",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White,
+                            color = MainText,
                             lineHeight = 24.sp
                         )
                     }
                 }
 
-                // Banner Atas (Jadwalkan Tugas Baru)
+                // Banner Atas
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = Panel),
+                    border = BorderStroke(1.dp, Border),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -93,26 +87,26 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             modifier = Modifier
                                 .size(40.dp)
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(primaryPurple),
+                                .background(PubBlue),
                             contentAlignment = Alignment.Center
                         ) {
-                            Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Color.White)
+                            Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Blue)
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Column(modifier = Modifier.weight(1f)) {
-                            Text(text = "Edit Tugas", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.White)
-                            Text(text = "Atur pengingat tepat waktu & si...", fontSize = 11.sp, color = Color.Gray)
+                            Text(text = "Perbarui Jadwal Tugas", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = MainText)
+                            Text(text = "Atur pengingat tepat waktu & si...", fontSize = 11.sp, color = Muted)
                         }
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = Color.White
+                            color = PubBlue
                         ) {
                             Text(
                                 text = "Draft Aktif",
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = primaryPurple
+                                color = Blue
                             )
                         }
                     }
@@ -124,6 +118,7 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                 Card(
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = Panel),
+                    border = BorderStroke(1.dp, Border),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -133,27 +128,27 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = primaryPurple, modifier = Modifier.size(18.dp))
+                                Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Blue, modifier = Modifier.size(18.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = "Informasi Inti", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.White)
+                                Text(text = "Informasi Inti", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = MainText)
                             }
                             Surface(
                                 shape = RoundedCornerShape(16.dp),
-                                color = Color(0xFFF0F2F5)
+                                color = Panel2
                             ) {
                                 Row(
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(text = "# #TSK-8942", fontSize = 11.sp, color = Color.DarkGray)
+                                    Text(text = "# #TSK-8942", fontSize = 11.sp, color = Muted)
                                     Spacer(modifier = Modifier.width(4.dp))
-                                    Icon(imageVector = Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(12.dp), tint = Color.Gray)
+                                    Icon(imageVector = Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(12.dp), tint = Muted)
                                 }
                             }
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
-                        Text(text = "Nama Tugas / Agenda *", fontSize = 12.sp, color = Color.LightGray)
+                        Text(text = "Nama Tugas / Agenda *", fontSize = 12.sp, color = Muted)
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
                             value = namaTugas,
@@ -161,10 +156,12 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(8.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = backgroundLight,
-                                unfocusedContainerColor = Panel,
-                                unfocusedTextColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray
+                                focusedContainerColor = Panel2,
+                                unfocusedContainerColor = Panel2,
+                                focusedTextColor = MainText,
+                                unfocusedTextColor = MainText,
+                                focusedBorderColor = Blue,
+                                unfocusedBorderColor = Border
                             )
                         )
 
@@ -173,38 +170,26 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(text = "Keterangan Lengkap", fontSize = 12.sp, color = Color.LightGray)
-                            Text(text = "0 / 250", fontSize = 11.sp, color = Color.Gray)
+                            Text(text = "Keterangan Lengkap", fontSize = 12.sp, color = Muted)
+                            Text(text = "0 / 250", fontSize = 11.sp, color = Muted)
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
                             value = keterangan,
                             onValueChange = { keterangan = it },
-//                            placeholder = { Text("Tambahkan catatan khusus, tautan dokumen, atau instruksi rapat...", fontSize = 12.sp, color = Color.White) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(80.dp),
                             shape = RoundedCornerShape(8.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = backgroundLight,
-                                unfocusedContainerColor = Panel,
-                                unfocusedTextColor = Color.White,
-                                unfocusedBorderColor = Color.LightGray
+                                focusedContainerColor = Panel2,
+                                unfocusedContainerColor = Panel2,
+                                focusedTextColor = MainText,
+                                unfocusedTextColor = MainText,
+                                focusedBorderColor = Blue,
+                                unfocusedBorderColor = Border
                             )
                         )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(text = "Template cepat:", fontSize = 11.sp, color = Color.LightGray)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Surface(shape = RoundedCornerShape(12.dp), color = Color(0xFFF0F2F5)) {
-                                Text(text = "+ Target Tim", modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp, color = primaryPurple)
-                            }
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Surface(shape = RoundedCornerShape(12.dp), color = Color(0xFFF0F2F5)) {
-                                Text(text = "+ Laporan", modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp), fontSize = 11.sp, color = primaryPurple)
-                            }
-                        }
                     }
                 }
 
@@ -213,7 +198,8 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                 // Card Section 2: Status & Penjadwalan
                 Card(
                     shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Panel2),
+                    colors = CardDefaults.cardColors(containerColor = Panel),
+                    border = BorderStroke(1.dp, Border),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -223,104 +209,37 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.Settings, contentDescription = null, tint = primaryPurple, modifier = Modifier.size(18.dp))
+                                Icon(imageVector = Icons.Default.Settings, contentDescription = null, tint = Blue, modifier = Modifier.size(18.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = "Status & Penjadwalan", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.White)
+                                Text(text = "Status & Penjadwalan", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = MainText)
                             }
-                            Text(text = "WIB (UTC+7)", fontSize = 11.sp, color = Color.White)
+                            Text(text = "WIB (UTC+7)", fontSize = 11.sp, color = Muted)
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
-                        Text(text = "Status Tugas", fontSize = 12.sp, color = Color.White)
+                        Text(text = "Status Tugas", fontSize = 12.sp, color = Muted)
                         Spacer(modifier = Modifier.height(8.dp))
 
                         // Grid Status
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                StatusOptionChip("Pending", false, Modifier.weight(1f)) {}
-                                StatusOptionChip("Berjalan", false, Modifier.weight(1f)) {}
+                                StatusOptionChip("Pending", selectedStatus == "Pending", Modifier.weight(1f), Amber) { selectedStatus = "Pending" }
+                                StatusOptionChip("Berjalan", selectedStatus == "Berjalan", Modifier.weight(1f), Blue) { selectedStatus = "Berjalan" }
                             }
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                StatusOptionChip("Dijadwalkan", true, Modifier.weight(1f), primaryPurple) {}
-                                StatusOptionChip("Selesai", false, Modifier.weight(1f)) {}
+                                StatusOptionChip("Dijadwalkan", selectedStatus == "Dijadwalkan", Modifier.weight(1f), Purple) { selectedStatus = "Dijadwalkan" }
+                                StatusOptionChip("Selesai", selectedStatus == "Selesai", Modifier.weight(1f), Green) { selectedStatus = "Selesai" }
                             }
                         }
-
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(text = "Remind At (Waktu Pengingat)", fontSize = 12.sp, color = Color.DarkGray)
-                            Text(text = "Notifikasi Push", fontSize = 11.sp, color = primaryPurple, fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(6.dp))
-
-                        // Waktu Pengingat Card
-                        Card(
-                            shape = RoundedCornerShape(12.dp),
-                            colors = CardDefaults.cardColors(containerColor = Panel),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(12.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = primaryPurple)
-                                Spacer(modifier = Modifier.width(12.dp))
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(text = "24 Okt 2024, 09:00 WIB", fontWeight = FontWeight.Bold, fontSize = 13.sp, color= Color.White)
-                                    Text(text = "Pengingat 15 menit sebelum acara", fontSize = 11.sp, color = Color.White)
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .size(32.dp)
-                                        .background(Color.White, CircleShape),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(imageVector = Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(16.dp), tint = Color.DarkGray)
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Card Section 3: Riwayat & Jejak Audit
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Panel),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = primaryPurple, modifier = Modifier.size(18.dp))
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = "Riwayat & Jejak Audit", fontWeight = FontWeight.Bold, fontSize = 14.sp, color=Color.White)
-                            }
-                            Surface(shape = RoundedCornerShape(12.dp), color = Color(0xFFF0F2F5)) {
-                                Text(text = "Sistem", modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp), fontSize = 10.sp, color = Color.DarkGray)
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(12.dp))
-                        AuditRowItem("Created At", "24 Okt 2024, 08:30 WIB")
-                        Spacer(modifier = Modifier.height(6.dp))
-                        AuditRowItem("Updated At", "Baru saja (Just now)", isHighlight = true, primaryColor = primaryPurple)
                     }
                 }
             }
 
-            // Tombol Aksi Bagian Bawah (Tanpa BottomAppBar)
+            // Tombol Aksi Bawah
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = Panel,
+                border = BorderStroke(1.dp, Border),
                 shadowElevation = 8.dp
             ) {
                 Column(
@@ -330,16 +249,16 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Button(
-                        onClick = { /* Simpan Schedule */ },
+                        onClick = { onBack() },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp),
                         shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = primaryPurple)
+                        colors = ButtonDefaults.buttonColors(containerColor = Purple)
                     ) {
-                        Icon(imageVector = Icons.Default.DateRange, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(imageVector = Icons.Default.DateRange, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Perbarui Schedule", fontWeight = FontWeight.Bold, color = Color.White)
+                        Text(text = "Simpan Perubahan", fontWeight = FontWeight.Bold, color = Color.White)
                     }
 
                     OutlinedButton(
@@ -348,11 +267,10 @@ fun EditScheduleScreen(onBack: () -> Unit) {
                             .fillMaxWidth()
                             .height(48.dp),
                         shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.DarkGray)
+                        border = BorderStroke(1.dp, Border),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Muted)
                     ) {
-                        Icon(imageVector = Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp), tint=Color.White)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Batal / Reset", fontWeight = FontWeight.Bold, color=Color.White)
+                        Text(text = "Batal", fontWeight = FontWeight.Bold, color = Muted)
                     }
                 }
             }
@@ -360,9 +278,8 @@ fun EditScheduleScreen(onBack: () -> Unit) {
     }
 }
 
-// Tambahan Preview sesuai permintaan
 @Preview(
-    name = "Add Schedule - Scroll Test",
+    name = "Edit Schedule",
     showBackground = true,
     showSystemUi = true,
 )

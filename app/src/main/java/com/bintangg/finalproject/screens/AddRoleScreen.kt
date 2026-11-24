@@ -1,5 +1,6 @@
 package com.bintangg.finalproject.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,36 +25,29 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun AddRoleScreen(onBack: () -> Unit) {
-    // State untuk form
     var namaPeran by remember { mutableStateOf("Product Auditor") }
     var deskripsiSingkat by remember { mutableStateOf("Bertanggung jawab mengaudit transaksi dan data operasional tim.") }
     var selectedLevel by remember { mutableStateOf("Admin") }
 
-    // State untuk checkbox izin akses
     var aksesPengguna by remember { mutableStateOf(true) }
     var kelolaTransaksi by remember { mutableStateOf(true) }
     var unduhLaporan by remember { mutableStateOf(true) }
     var pengaturanSistem by remember { mutableStateOf(false) }
-
-    val primaryPurple = Color(0xFF6750A4) // Perbaikan: Warna ungu utama yang valid
-    val backgroundLight = Color(0xFFF8F9FA)
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = AppBg
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Konten yang bisa di-scroll
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
-                // Header (Pengganti TopAppBar kustom)
+                // Header
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -66,14 +60,14 @@ fun AddRoleScreen(onBack: () -> Unit) {
                         modifier = Modifier
                             .size(24.dp)
                             .clickable { onBack() },
-                        tint = Color.White
+                        tint = MainText
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
                         text = "Tambah Peran Baru",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        color = MainText
                     )
                 }
 
@@ -82,17 +76,17 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     text = "Informasi Peran",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = MainText
                 )
                 Text(
                     text = "Atur profil peran dan tentukan batas akses otorisasi sistem.",
                     fontSize = 12.sp,
-                    color = Color.LightGray,
+                    color = Muted,
                     modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
                 )
 
                 // Input Nama Peran
-                Text(text = "Nama Peran", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                Text(text = "Nama Peran", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Muted)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = namaPeran,
@@ -100,11 +94,12 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = primaryPurple,
-                        unfocusedBorderColor = Color.LightGray,
-                        focusedContainerColor = backgroundLight,
-                        unfocusedContainerColor = Panel,
-                        unfocusedTextColor = Color.White
+                        focusedBorderColor = Blue,
+                        unfocusedBorderColor = Border,
+                        focusedContainerColor = Panel2,
+                        unfocusedContainerColor = Panel2,
+                        focusedTextColor = MainText,
+                        unfocusedTextColor = MainText
                     ),
                     singleLine = true
                 )
@@ -112,7 +107,7 @@ fun AddRoleScreen(onBack: () -> Unit) {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Input Deskripsi Singkat
-                Text(text = "Deskripsi Singkat", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                Text(text = "Deskripsi Singkat", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Muted)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = deskripsiSingkat,
@@ -122,42 +117,43 @@ fun AddRoleScreen(onBack: () -> Unit) {
                         .height(80.dp),
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = primaryPurple,
-                        unfocusedBorderColor = Color.LightGray,
-                        focusedContainerColor = backgroundLight,
-                        unfocusedContainerColor = Panel,
-                        unfocusedTextColor = Color.White
+                        focusedBorderColor = Blue,
+                        unfocusedBorderColor = Border,
+                        focusedContainerColor = Panel2,
+                        unfocusedContainerColor = Panel2,
+                        focusedTextColor = MainText,
+                        unfocusedTextColor = MainText
                     )
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Level Akses Chips
-                Text(text = "Level Akses", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                Text(text = "Level Akses", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Muted)
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    LevelChip1(
+                    LevelChip(
                         title = "Admin",
                         icon = Icons.Default.Person,
                         isSelected = selectedLevel == "Admin",
-                        primaryColor = Color(0xFF1B2048),
+                        primaryColor = Purple,
                         onClick = { selectedLevel = "Admin" }
                     )
-                    LevelChip1(
+                    LevelChip(
                         title = "Editor",
                         icon = Icons.Default.Person,
                         isSelected = selectedLevel == "Editor",
-                        primaryColor = primaryPurple,
+                        primaryColor = Purple,
                         onClick = { selectedLevel = "Editor" }
                     )
-                    LevelChip1(
+                    LevelChip(
                         title = "Viewer",
                         icon = Icons.Default.Person,
                         isSelected = selectedLevel == "Viewer",
-                        primaryColor = primaryPurple,
+                        primaryColor = Purple,
                         onClick = { selectedLevel = "Viewer" }
                     )
                 }
@@ -169,12 +165,12 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     text = "Izin Akses Esensial",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MainText
                 )
                 Text(
                     text = "Pilih kewenangan yang diberikan kepada peran ini",
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = Muted,
                     modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
                 )
 
@@ -185,7 +181,7 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     icon = Icons.Default.Person,
                     checked = aksesPengguna,
                     onCheckedChange = { aksesPengguna = it },
-                    primaryColor = primaryPurple
+                    primaryColor = Purple
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PermissionCard(
@@ -194,7 +190,7 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     icon = Icons.Default.Person,
                     checked = kelolaTransaksi,
                     onCheckedChange = { kelolaTransaksi = it },
-                    primaryColor = primaryPurple
+                    primaryColor = Purple
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PermissionCard(
@@ -203,7 +199,7 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     icon = Icons.Default.Person,
                     checked = unduhLaporan,
                     onCheckedChange = { unduhLaporan = it },
-                    primaryColor = primaryPurple
+                    primaryColor = Purple
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 PermissionCard(
@@ -212,14 +208,15 @@ fun AddRoleScreen(onBack: () -> Unit) {
                     icon = Icons.Default.Person,
                     checked = pengaturanSistem,
                     onCheckedChange = { pengaturanSistem = it },
-                    primaryColor = primaryPurple
+                    primaryColor = Purple
                 )
             }
 
-            // Bagian Tombol Aksi Bawah (Pengganti BottomAppBar)
+            // Tombol Aksi Bawah
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = Color.White,
+                color = Panel,
+                border = BorderStroke(1.dp, Border),
                 shadowElevation = 8.dp
             ) {
                 Row(
@@ -234,10 +231,10 @@ fun AddRoleScreen(onBack: () -> Unit) {
                             .weight(1f)
                             .height(48.dp),
                         shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.DarkGray),
-                        border = ButtonDefaults.outlinedButtonBorder
+                        border = BorderStroke(1.dp, Border),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Muted)
                     ) {
-                        Text(text = "Batal", fontWeight = FontWeight.Bold)
+                        Text(text = "Batal", fontWeight = FontWeight.Bold, color = Muted)
                     }
 
                     Button(
@@ -246,51 +243,15 @@ fun AddRoleScreen(onBack: () -> Unit) {
                             .weight(1.5f)
                             .height(48.dp),
                         shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2))
+                        colors = ButtonDefaults.buttonColors(containerColor = Purple)
                     ) {
-                        Icon(imageVector = Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Icon(imageVector = Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(text = "Simpan Peran", fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun LevelChip1(
-    title: String,
-    icon: ImageVector,
-    isSelected: Boolean,
-    primaryColor: Color,
-    onClick: () -> Unit
-) {
-    val backgroundColor = if (isSelected) primaryColor else Panel
-    val contentColor = if (isSelected) Color.White else Color.DarkGray
-
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .background(backgroundColor)
-            .clickable { onClick() }
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = contentColor,
-            modifier = Modifier.size(16.dp)
-        )
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(
-            text = title,
-            color = contentColor,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
-        )
     }
 }
 
@@ -307,14 +268,15 @@ fun PermissionCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFF10192A))
+            .background(Panel)
+            .border(BorderStroke(1.dp, Border), RoundedCornerShape(8.dp))
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = primaryColor,
+            tint = Blue,
             modifier = Modifier
                 .size(24.dp)
                 .padding(end = 8.dp)
@@ -322,15 +284,15 @@ fun PermissionCard(
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            Text(text = subtitle, fontSize = 11.sp, color = Color.White)
+            Text(text = title, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = MainText)
+            Text(text = subtitle, fontSize = 11.sp, color = Muted)
         }
         Checkbox(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
                 checkedColor = primaryColor,
-                uncheckedColor = Color.Gray
+                uncheckedColor = Muted
             )
         )
     }

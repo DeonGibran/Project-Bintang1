@@ -17,25 +17,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Calculate
-import androidx.compose.material.icons.outlined.CheckCircleOutline
 import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.Swipe
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,21 +38,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.components.SubjectItem
 
-// -- Palet Warna --
-val PrimaryBlue = Color(0xFF0A56D0)       // Warna biru utama untuk border, button, dan progress
-val TextDark = Color(0xFF1E1E1E)          // Warna teks hitam utama
-val TextGray = Color(0xFF5F6368)          // Warna teks abu-abu subtitle
-val TrackGray = Color(0xFFE0E0E0)         // Warna abu-abu background progress bar
-val BorderLightGray = Color(0xFFF1F3F4)   // Warna border pada list antrean
-val IconBgLight = Color(0xFFF0F4F9)       // Warna background icon kotak
-val IconBlueGray = Color(0xFF4A6583)      // Warna icon di dalam kotak
+// -- Palet Warna (Kompatibilitas Backward) --
+val PrimaryBlue = Blue
+val TextDark = MainText
+val TextGray = Muted
+val TrackGray = Panel2
+val BorderLightGray = Border
+val IconBgLight = Panel2
+val IconBlueGray = Blue
 
 @Composable
 fun StudyProgressScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundWhite)
+            .background(AppBg)
             .verticalScroll(rememberScrollState())
             .padding(vertical = 24.dp, horizontal = 20.dp)
     ) {
@@ -69,13 +64,13 @@ fun StudyProgressScreen() {
         ) {
             Text(
                 text = "Progress",
-                color = TextDark,
+                color = MainText,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
             )
             Text(
                 text = "12/20",
-                color = PrimaryBlue,
+                color = Blue,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -87,9 +82,9 @@ fun StudyProgressScreen() {
             progress = { 12f / 20f },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(4.dp),
-            color = PrimaryBlue,
-            trackColor = TrackGray,
+                .height(6.dp),
+            color = Blue,
+            trackColor = Panel2,
             strokeCap = StrokeCap.Round
         )
 
@@ -98,9 +93,9 @@ fun StudyProgressScreen() {
         // --- Bagian Kartu Soal ---
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = BackgroundWhite),
-            border = BorderStroke(1.dp, PrimaryBlue),
-            shape = RoundedCornerShape(8.dp)
+            colors = CardDefaults.cardColors(containerColor = Panel),
+            border = BorderStroke(1.dp, Border),
+            shape = RoundedCornerShape(14.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -110,7 +105,7 @@ fun StudyProgressScreen() {
             ) {
                 Text(
                     text = "FISIKA - HUKUM NEWTON",
-                    color = IconBlueGray,
+                    color = Blue,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
@@ -120,7 +115,7 @@ fun StudyProgressScreen() {
 
                 Text(
                     text = "Berapa besar gaya yang\ndiperlukan untuk\nmemberikan percepatan\n2 m/s² pada massa 5 kg?",
-                    color = TextDark,
+                    color = MainText,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -134,8 +129,8 @@ fun StudyProgressScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
-                    shape = RoundedCornerShape(4.dp)
+                    colors = ButtonDefaults.buttonColors(containerColor = Purple),
+                    shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
                         text = "Tampilkan Jawaban",
@@ -152,7 +147,7 @@ fun StudyProgressScreen() {
         // --- Bagian List Antrean Subjek ---
         Text(
             text = "Antrean Subjek",
-            color = TextDark,
+            color = MainText,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
@@ -161,7 +156,7 @@ fun StudyProgressScreen() {
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SubjectItem(
-                icon = Icons.Outlined.Science, // Ganti dengan icon flask sesuai kebutuhan
+                icon = Icons.Outlined.Science,
                 title = "Biologi - Sel",
                 subtitle = "8 Kartu Siap Di-review",
                 isCompleted = false
@@ -175,7 +170,7 @@ fun StudyProgressScreen() {
             )
 
             SubjectItem(
-                icon = Icons.Outlined.Swipe, // Pendekatan visual untuk icon kartu
+                icon = Icons.Outlined.Swipe,
                 title = "Sejarah - Perang Dunia II",
                 subtitle = "Selesai hari ini",
                 isCompleted = true
@@ -183,8 +178,6 @@ fun StudyProgressScreen() {
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

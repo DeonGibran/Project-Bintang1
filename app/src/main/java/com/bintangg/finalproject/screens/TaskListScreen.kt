@@ -14,19 +14,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
@@ -39,23 +37,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.components.TaskCard
 
-// --- Palet Warna ---
-val TabTextSelected = Color(0xFF0052CC) // Biru pekat
-val TabTextUnselected = Color(0xFF475569) // Abu-abu
-val BorderCard = Color(0xFFE2E8F0)
-val TextTitleDark = Color(0xFF0F172A)
-val TagBgBlue = Color(0xFFEFF6FF)
-val TagTextBlue = Color(0xFF2563EB)
-val UrgentTextRed = Color(0xFFDC2626)
-val TimeTextGrey = Color(0xFF475569)
-val FabBlue = Color(0xFF0052CC)
+// --- Palet Warna (Kompatibilitas Backward) ---
+val TabTextSelected = Blue
+val TabTextUnselected = Muted
+val BorderCard = Border
+val TextTitleDark = MainText
+val TagBgBlue = PubBlue
+val TagTextBlue = Blue
+val UrgentTextRed = Red
+val TimeTextGrey = Muted
+val FabBlue = Purple
 
 @Composable
 fun TaskListScreen(onAddTask: () -> Unit) {
@@ -66,14 +63,14 @@ fun TaskListScreen(onAddTask: () -> Unit) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddTask,
-                containerColor = FabBlue,
+                containerColor = Purple,
                 contentColor = Color.White,
-                shape = RoundedCornerShape(12.dp) // Radius melengkung mirip gambar
+                shape = CircleShape
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Tugas")
             }
         },
-        containerColor = BackgroundWhite
+        containerColor = AppBg
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -83,13 +80,13 @@ fun TaskListScreen(onAddTask: () -> Unit) {
             // --- Tab Row Section ---
             ScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
-                edgePadding = 0.dp, // Agar tab menempel di sisi kiri
-                containerColor = BackgroundWhite,
-                divider = { HorizontalDivider(color = BorderCard) },
+                edgePadding = 0.dp,
+                containerColor = Panel,
+                divider = { HorizontalDivider(color = Border) },
                 indicator = { tabPositions ->
                     TabRowDefaults.SecondaryIndicator(
                         Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                        color = TabTextSelected
+                        color = Blue
                     )
                 }
             ) {
@@ -100,7 +97,7 @@ fun TaskListScreen(onAddTask: () -> Unit) {
                         text = {
                             Text(
                                 text = title,
-                                color = if (selectedTabIndex == index) TabTextSelected else TabTextUnselected,
+                                color = if (selectedTabIndex == index) Blue else Muted,
                                 fontWeight = if (selectedTabIndex == index) FontWeight.SemiBold else FontWeight.Medium,
                                 fontSize = 14.sp
                             )
@@ -143,8 +140,6 @@ fun TaskListScreen(onAddTask: () -> Unit) {
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

@@ -30,12 +30,9 @@ fun EditCategoryScreen(onBack: () -> Unit) {
         mutableStateOf("Materi kalkulus, aljabar linear, dan trigonometri untuk siswa SMA & persiapan ujian masuk kuliah.")
     }
 
-    val primaryBlue = Color(0xFF2962FF)
-    val backgroundLight = Color(0xFFF8F9FA)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = AppBg
     ) {
         Column(
             modifier = Modifier
@@ -43,7 +40,7 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            // Header Kustom (Tanpa TopAppBar)
+            // Header Kustom
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,6 +50,7 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Kembali",
+                    tint = MainText,
                     modifier = Modifier
                         .size(24.dp)
                         .clickable { onBack() }
@@ -62,7 +60,7 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                     text = "Edit Kategori",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MainText
                 )
             }
 
@@ -76,26 +74,26 @@ fun EditCategoryScreen(onBack: () -> Unit) {
             ) {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = Color(0xFFE8F0FE)
+                    color = PubBlue
                 ) {
                     Text(
                         text = "● MANAJEMEN MATERI",
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
-                        color = primaryBlue
+                        color = Blue
                     )
                 }
 
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = Color(0xFFF1F3F4)
+                    color = Panel2
                 ) {
                     Text(
                         text = "🕒 ID: KAT-804",
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                         fontSize = 11.sp,
-                        color = Color.DarkGray
+                        color = Muted
                     )
                 }
             }
@@ -105,20 +103,20 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                 text = "Edit Kategori",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MainText
             )
             Text(
                 text = "Perbarui detail kategori pelajaran dan keterangan informasinya.",
                 fontSize = 12.sp,
-                color = Color.Gray,
+                color = Muted,
                 modifier = Modifier.padding(top = 2.dp, bottom = 16.dp)
             )
 
             // Card Preview Kategori Aktif
             Card(
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = backgroundLight),
-                border = CardDefaults.outlinedCardBorder(),
+                colors = CardDefaults.cardColors(containerColor = Panel),
+                border = BorderStroke(1.dp, Border),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(
@@ -129,10 +127,10 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         modifier = Modifier
                             .size(48.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(primaryBlue),
+                            .background(PubBlue),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Color.White)
+                        Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Blue)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(modifier = Modifier.weight(1f)) {
@@ -140,19 +138,19 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                             text = "Matematika Tingkat Lanjut",
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp,
-                            color = Color.Black
+                            color = MainText
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = Color(0xFFE8F0FE)
+                            color = PubBlue
                         ) {
                             Text(
                                 text = "Kategori Aktif",
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = primaryBlue
+                                color = Blue
                             )
                         }
                     }
@@ -164,8 +162,8 @@ fun EditCategoryScreen(onBack: () -> Unit) {
             // Card Form Informasi Kategori
             Card(
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                border = CardDefaults.outlinedCardBorder(),
+                colors = CardDefaults.cardColors(containerColor = Panel),
+                border = BorderStroke(1.dp, Border),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
@@ -179,11 +177,11 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = primaryBlue, modifier = Modifier.size(18.dp))
+                            Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Blue, modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "Informasi Kategori", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                            Text(text = "Informasi Kategori", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = MainText)
                         }
-                        Text(text = "Wajib diisi *", fontSize = 11.sp, color = Color.Gray)
+                        Text(text = "Wajib diisi *", fontSize = 11.sp, color = Muted)
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -192,8 +190,8 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = "Nama Kategori *", fontSize = 12.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium)
-                        Text(text = "25/60", fontSize = 11.sp, color = Color.Gray)
+                        Text(text = "Nama Kategori *", fontSize = 12.sp, color = Muted, fontWeight = FontWeight.Medium)
+                        Text(text = "25/60", fontSize = 11.sp, color = Muted)
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
@@ -202,8 +200,12 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText,
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border
                         ),
                         singleLine = true
                     )
@@ -214,8 +216,8 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = "Keterangan", fontSize = 12.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium)
-                        Text(text = "Opsional", fontSize = 11.sp, color = Color.Gray)
+                        Text(text = "Keterangan", fontSize = 12.sp, color = Muted, fontWeight = FontWeight.Medium)
+                        Text(text = "Opsional", fontSize = 11.sp, color = Muted)
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
@@ -226,8 +228,12 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                             .height(100.dp),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText,
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border
                         )
                     )
                 }
@@ -242,9 +248,9 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                     .fillMaxWidth()
                     .height(48.dp),
                 shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = primaryBlue)
+                colors = ButtonDefaults.buttonColors(containerColor = Purple)
             ) {
-                Icon(imageVector = Icons.Default.DateRange, contentDescription = null, modifier = Modifier.size(18.dp))
+                Icon(imageVector = Icons.Default.DateRange, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(text = "Simpan Perubahan", fontWeight = FontWeight.Bold, color = Color.White)
             }
@@ -262,9 +268,10 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.DarkGray)
+                    border = BorderStroke(1.dp, Border),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Muted)
                 ) {
-                    Text(text = "Batal", fontWeight = FontWeight.Bold)
+                    Text(text = "Batal", fontWeight = FontWeight.Bold, color = Muted)
                 }
 
                 OutlinedButton(
@@ -274,14 +281,14 @@ fun EditCategoryScreen(onBack: () -> Unit) {
                         .height(48.dp),
                     shape = RoundedCornerShape(24.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        containerColor = Color(0xFFFFF5F5),
-                        contentColor = Color(0xFFD32F2F)
+                        containerColor = Panel2,
+                        contentColor = Red
                     ),
-                    border = BorderStroke(1.dp, Color(0xFFFFCDD2))
+                    border = BorderStroke(1.dp, Red.copy(alpha = 0.5f))
                 ) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp), tint = Red)
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "Hapus Kategori", fontWeight = FontWeight.Bold)
+                    Text(text = "Hapus Kategori", fontWeight = FontWeight.Bold, color = Red)
                 }
             }
         }

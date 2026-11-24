@@ -28,12 +28,9 @@ fun EditTaskScreen(onBack: () -> Unit) {
     var tanggalSelesai by remember { mutableStateOf("23:59") }
     var selectedPriority by remember { mutableStateOf("Sedang") }
 
-    val primaryBlue = Color(0xFF2962FF)
-    val backgroundLight = Color(0xFFF8F9FA)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = AppBg
     ) {
         Column(
             modifier = Modifier
@@ -41,7 +38,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            // Header Kustom (Tanpa TopAppBar) dengan tombol Close di kanan
+            // Header Kustom
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,7 +50,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                     text = "Edit Tugas",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MainText
                 )
                 Icon(
                     imageVector = Icons.Default.Close,
@@ -61,7 +58,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                     modifier = Modifier
                         .size(24.dp)
                         .clickable { onBack() },
-                    tint = Color.Black
+                    tint = MainText
                 )
             }
 
@@ -70,7 +67,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 text = "Judul Tugas",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.DarkGray
+                color = Muted
             )
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
@@ -79,8 +76,12 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = backgroundLight,
-                    unfocusedContainerColor = backgroundLight
+                    focusedContainerColor = Panel2,
+                    unfocusedContainerColor = Panel2,
+                    focusedTextColor = MainText,
+                    unfocusedTextColor = MainText,
+                    focusedBorderColor = Blue,
+                    unfocusedBorderColor = Border
                 ),
                 singleLine = true
             )
@@ -92,7 +93,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 text = "Mata Pelajaran",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.DarkGray
+                color = Muted
             )
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
@@ -101,8 +102,12 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = backgroundLight,
-                    unfocusedContainerColor = backgroundLight
+                    focusedContainerColor = Panel2,
+                    unfocusedContainerColor = Panel2,
+                    focusedTextColor = MainText,
+                    unfocusedTextColor = MainText,
+                    focusedBorderColor = Blue,
+                    unfocusedBorderColor = Border
                 ),
                 singleLine = true
             )
@@ -119,7 +124,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                         text = "Tanggal Mulai",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.DarkGray
+                        color = Muted
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
@@ -128,11 +133,15 @@ fun EditTaskScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         trailingIcon = {
-                            Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Color.Gray)
+                            Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = Muted)
                         },
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText,
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border
                         ),
                         singleLine = true
                     )
@@ -143,7 +152,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                         text = "Tanggal Selesai",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.DarkGray
+                        color = Muted
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
@@ -152,11 +161,15 @@ fun EditTaskScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         trailingIcon = {
-                            Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
+                            Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Muted)
                         },
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText,
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border
                         ),
                         singleLine = true
                     )
@@ -170,7 +183,7 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 text = "Priority",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.DarkGray
+                color = Muted
             )
             Spacer(modifier = Modifier.height(6.dp))
             OutlinedTextField(
@@ -179,11 +192,15 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp),
                 trailingIcon = {
-                    Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
+                    Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Muted)
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = backgroundLight,
-                    unfocusedContainerColor = backgroundLight
+                    focusedContainerColor = Panel2,
+                    unfocusedContainerColor = Panel2,
+                    focusedTextColor = MainText,
+                    unfocusedTextColor = MainText,
+                    focusedBorderColor = Blue,
+                    unfocusedBorderColor = Border
                 ),
                 singleLine = true
             )
@@ -198,21 +215,21 @@ fun EditTaskScreen(onBack: () -> Unit) {
                 PriorityChip(
                     title = "Tinggi",
                     isSelected = selectedPriority == "Tinggi",
-                    primaryColor = primaryBlue,
+                    primaryColor = Blue,
                     modifier = Modifier.weight(1f)
                 ) { selectedPriority = "Tinggi" }
 
                 PriorityChip(
                     title = "Sedang",
                     isSelected = selectedPriority == "Sedang",
-                    primaryColor = primaryBlue,
+                    primaryColor = Blue,
                     modifier = Modifier.weight(1f)
                 ) { selectedPriority = "Sedang" }
 
                 PriorityChip(
                     title = "Rendah",
                     isSelected = selectedPriority == "Rendah",
-                    primaryColor = primaryBlue,
+                    primaryColor = Blue,
                     modifier = Modifier.weight(1f)
                 ) { selectedPriority = "Rendah" }
             }
@@ -228,16 +245,17 @@ fun PriorityChip(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val borderColor = if (isSelected) primaryColor else Color.LightGray
-    val textColor = if (isSelected) primaryColor else Color.DarkGray
+    val borderColor = if (isSelected) primaryColor else Border
+    val textColor = if (isSelected) primaryColor else Muted
     val fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+    val bgColor = if (isSelected) PubBlue else Panel2
 
     OutlinedButton(
         onClick = onClick,
         modifier = modifier.height(46.dp),
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = if (isSelected) Color(0xFFF0F4FF) else Color.White,
+            containerColor = bgColor,
             contentColor = textColor
         ),
         border = BorderStroke(1.dp, borderColor)

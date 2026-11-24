@@ -1,5 +1,6 @@
 package com.bintangg.finalproject.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -28,12 +29,9 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedTab by remember { mutableStateOf("Semua (5)") }
 
-    val primaryBlue = Color(0xFF2962FF)
-    val backgroundLight = Color(0xFFF8F9FA)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = AppBg
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
@@ -42,18 +40,18 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
-                // Header Judul & Deskripsi (Tanpa TopAppBar)
+                // Header Judul & Deskripsi
                 Text(
                     text = "Kelola Kategori 📚",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MainText
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Atur pengelompokan mata pelajaran dan materi belajarmu.",
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = Muted,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -61,32 +59,34 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("Cari kategori mata pelajaran...", fontSize = 13.sp, color = Color.Gray) },
+                    placeholder = { Text("Cari kategori mata pelajaran...", fontSize = 13.sp, color = Muted) },
                     leadingIcon = {
-                        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Color.Gray)
+                        Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = Muted)
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = backgroundLight,
-                        unfocusedContainerColor = backgroundLight,
-                        focusedBorderColor = primaryBlue,
-                        unfocusedBorderColor = Color(0xFFE0E0E0)
+                        focusedContainerColor = Panel,
+                        unfocusedContainerColor = Panel,
+                        focusedTextColor = MainText,
+                        unfocusedTextColor = MainText,
+                        focusedBorderColor = Blue,
+                        unfocusedBorderColor = Border
                     ),
                     singleLine = true
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Tab Filter (Semua, Aktif, Perlu Tinjau, Arsip)
+                // Tab Filter
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    TabItem("Semua (5)", selectedTab == "Semua (5)", primaryBlue) { selectedTab = "Semua (5)" }
-                    TabItem("Aktif (4)", selectedTab == "Aktif (4)", primaryBlue) { selectedTab = "Aktif (4)" }
-                    TabItem("Perlu Tinjau (1)", selectedTab == "Perlu Tinjau (1)", primaryBlue) { selectedTab = "Perlu Tinjau (1)" }
-                    TabItem("Arsip (0)", selectedTab == "Arsip (0)", primaryBlue) { selectedTab = "Arsip (0)" }
+                    TabItem("Semua (5)", selectedTab == "Semua (5)", Blue) { selectedTab = "Semua (5)" }
+                    TabItem("Aktif (4)", selectedTab == "Aktif (4)", Blue) { selectedTab = "Aktif (4)" }
+                    TabItem("Perlu Tinjau (1)", selectedTab == "Perlu Tinjau (1)", Blue) { selectedTab = "Perlu Tinjau (1)" }
+                    TabItem("Arsip (0)", selectedTab == "Arsip (0)", Blue) { selectedTab = "Arsip (0)" }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -102,25 +102,25 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                             text = "Daftar Kategori",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Black
+                            color = MainText
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = Color(0xFFE8F0FE)
+                            color = PubBlue
                         ) {
                             Text(
                                 text = "5 Total",
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = primaryBlue
+                                color = Blue
                             )
                         }
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(text = "Terbaru ↕", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = primaryBlue)
+                        Text(text = "Terbaru ↕", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Blue)
                     }
                 }
 
@@ -131,10 +131,10 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     title = "Fisika Dasar",
                     subtitle = "Lab Fisika Modern • 8 Tugas ...",
                     tagText = "Mendesak",
-                    tagColor = Color(0xFFD32F2F),
-                    tagBgColor = Color(0xFFFFEBEE),
+                    tagColor = Red,
+                    tagBgColor = Panel2,
                     badgeCount = "8 Tugas",
-                    iconColor = Color(0xFF2962FF),
+                    iconColor = Blue,
                     onEditCategory = onEditCategory
                 )
 
@@ -144,10 +144,10 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     title = "Matematika...",
                     subtitle = "Gedung A, Ruang 101 • 4 Tugar...",
                     tagText = "Berlangsung",
-                    tagColor = Color.White,
-                    tagBgColor = Color(0xFF1565C0),
+                    tagColor = Blue,
+                    tagBgColor = PubBlue,
                     badgeCount = "4 Tugas",
-                    iconColor = Color(0xFF1565C0),
+                    iconColor = Blue,
                     onEditCategory = onEditCategory
                 )
 
@@ -157,10 +157,10 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     title = "Biologi",
                     subtitle = "Laboratorium Utama • 6 Tug...",
                     tagText = "Aktif",
-                    tagColor = Color(0xFF1565C0),
-                    tagBgColor = Color(0xFFE8F0FE),
+                    tagColor = Green,
+                    tagBgColor = Panel2,
                     badgeCount = "6 Tugas",
-                    iconColor = Color(0xFF00ACC1),
+                    iconColor = Green,
                     onEditCategory = onEditCategory
                 )
 
@@ -170,10 +170,10 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     title = "Sastra Indone...",
                     subtitle = "Perpustakaan Pusat • 2 Tuga...",
                     tagText = "Aktif",
-                    tagColor = Color(0xFF1565C0),
-                    tagBgColor = Color(0xFFE8F0FE),
+                    tagColor = Blue,
+                    tagBgColor = PubBlue,
                     badgeCount = "2 Tugas",
-                    iconColor = Color(0xFF5E35B1),
+                    iconColor = Purple,
                     onEditCategory = onEditCategory
                 )
 
@@ -183,20 +183,19 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
                     title = "Sejarah Dunia",
                     subtitle = "Modul Baru • 1 Silabus Belum L...",
                     tagText = "Review",
-                    tagColor = Color(0xFFD32F2F),
-                    tagBgColor = Color(0xFFFFEBEE),
+                    tagColor = Amber,
+                    tagBgColor = Panel2,
                     badgeCount = "Draft",
                     isDraftBadge = true,
-                    iconColor = Color(0xFFC62828),
-                    cardBg = Color(0xFFFFF8F8),
+                    iconColor = Amber,
+                    cardBg = Panel,
                     onEditCategory = onEditCategory
                 )
 
-                // Ruang kosong bawah agar tidak tertutup tombol Floating
                 Spacer(modifier = Modifier.height(80.dp))
             }
 
-            // Tombol Tambah Melayang di Kanan Bawah (Pengganti BottomAppBar Action)
+            // Tombol Tambah Melayang di Kanan Bawah
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -205,7 +204,7 @@ fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
             ) {
                 FloatingActionButton(
                     onClick = onAddCategory,
-                    containerColor = primaryBlue,
+                    containerColor = Purple,
                     contentColor = Color.White,
                     shape = CircleShape
                 ) {
@@ -228,7 +227,7 @@ fun TabItem(title: String, isSelected: Boolean, primaryColor: Color, onClick: ()
             text = title,
             fontSize = 12.sp,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-            color = if (isSelected) primaryColor else Color.Gray
+            color = if (isSelected) primaryColor else Muted
         )
         Spacer(modifier = Modifier.height(4.dp))
         if (isSelected) {
@@ -254,13 +253,13 @@ fun KategoriCard(
     badgeCount: String,
     isDraftBadge: Boolean = false,
     iconColor: Color,
-    cardBg: Color = Color.White,
+    cardBg: Color = Panel,
     onEditCategory: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = cardBg),
-        border = CardDefaults.outlinedCardBorder(),
+        border = BorderStroke(1.dp, Border),
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
@@ -274,7 +273,7 @@ fun KategoriCard(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(iconColor.copy(alpha = 0.12f)),
+                    .background(PubBlue),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(imageVector = Icons.Default.DateRange, contentDescription = null, tint = iconColor, modifier = Modifier.size(20.dp))
@@ -289,7 +288,7 @@ fun KategoriCard(
                         text = title,
                         fontWeight = FontWeight.Bold,
                         fontSize = 13.sp,
-                        color = Color.Black
+                        color = MainText
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Surface(
@@ -309,7 +308,7 @@ fun KategoriCard(
                 Text(
                     text = subtitle,
                     fontSize = 11.sp,
-                    color = Color.Gray
+                    color = Muted
                 )
             }
 
@@ -317,32 +316,17 @@ fun KategoriCard(
 
             // Badge Kanan & Tombol Menu Opsi
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (isDraftBadge) {
-                    Surface(
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color(0xFFFFEBEE)
-                    ) {
-                        Text(
-                            text = badgeCount,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFD32F2F)
-                        )
-                    }
-                } else {
-                    Surface(
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color(0xFFE8F0FE)
-                    ) {
-                        Text(
-                            text = badgeCount,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF2962FF)
-                        )
-                    }
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Panel2
+                ) {
+                    Text(
+                        text = badgeCount,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isDraftBadge) Amber else Blue
+                    )
                 }
 
                 Spacer(modifier = Modifier.width(4.dp))
@@ -350,11 +334,11 @@ fun KategoriCard(
                 Icon(
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = "Opsi Lainnya",
-                    tint = Color.Gray,
+                    tint = Muted,
                     modifier = Modifier
                         .size(20.dp)
                         .clickable(onClick = onEditCategory)
-                )
+                    )
             }
         }
     }

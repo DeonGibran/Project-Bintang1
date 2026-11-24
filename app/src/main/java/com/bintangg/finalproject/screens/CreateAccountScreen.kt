@@ -35,11 +35,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val PrimaryIndigo = Color(0xFF4F46E5)
-val LightIndigoBg = Color(0xFFEEF2FF)
-val SlateBackground = Color(0xFFF8FAFC)
-val SlateBorder = Color(0xFFE2E8F0)
-val TextMuted = Color(0xFF64748B)
+val PrimaryIndigo = Purple
+val LightIndigoBg = PubBlue
+val SlateBackground = Panel2
+val SlateBorder = Border
+val TextMuted = Muted
 
 enum class UserRole {
     TEACHER, STUDENT
@@ -60,10 +60,8 @@ fun CreateAccountScreen(
     val scrollState = rememberScrollState()
 
     Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-        color = Color.White
+        modifier = Modifier.fillMaxSize(),
+        color = AppBg
     ) {
         Column(
             modifier = Modifier
@@ -76,12 +74,13 @@ fun CreateAccountScreen(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(50))
-                    .background(LightIndigoBg)
+                    .background(PubBlue)
+                    .border(BorderStroke(1.dp, Border), RoundedCornerShape(50))
                     .padding(horizontal = 14.dp, vertical = 6.dp)
             ) {
                 Text(
                     text = "✨ Mulai langkahmu hari ini",
-                    color = PrimaryIndigo,
+                    color = Blue,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -93,12 +92,12 @@ fun CreateAccountScreen(
                     text = "Buat Akun Baru",
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextDark
+                    color = MainText
                 )
                 Text(
                     text = "Lengkapi data di bawah ini untuk memulai pengalaman terbaikmu.",
                     fontSize = 13.sp,
-                    color = TextMuted,
+                    color = Muted,
                     lineHeight = 18.sp
                 )
             }
@@ -114,17 +113,17 @@ fun CreateAccountScreen(
                         text = "PILIH PERAN ANDA",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
-                        color = TextMuted,
+                        color = Muted,
                         letterSpacing = 0.5.sp
                     )
                     Surface(
-                        color = Color(0xFFFFF1F2),
+                        color = Panel2,
                         shape = RoundedCornerShape(6.dp)
                     ) {
                         Text(
                             text = "Wajib",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                            color = Color(0xFFF43F5E),
+                            color = Red,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -136,7 +135,8 @@ fun CreateAccountScreen(
                     title = "Guru / Pendidik",
                     subtitle = "Kelola kelas, materi & evaluasi",
                     badgeText = "Utama",
-                    badgeColor = Color(0xFFF43F5E),
+                    badgeColor = PubBlue,
+                    badgeTextColor = Blue,
                     isSelected = selectedRole == UserRole.TEACHER,
                     icon = Icons.Default.Person,
                     onClick = { selectedRole = UserRole.TEACHER }
@@ -147,8 +147,8 @@ fun CreateAccountScreen(
                     title = "Siswa / Pelajar",
                     subtitle = "Akses materi pelajaran & tugas",
                     badgeText = "Akses Belajar",
-                    badgeColor = Color(0xFFE2E8F0),
-                    badgeTextColor = Color(0xFF475569),
+                    badgeColor = Panel2,
+                    badgeTextColor = Muted,
                     isSelected = selectedRole == UserRole.STUDENT,
                     icon = Icons.Default.Person,
                     onClick = { selectedRole = UserRole.STUDENT }
@@ -157,7 +157,6 @@ fun CreateAccountScreen(
 
             // Form Inputs
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                // Nama Lengkap
                 CustomTextField(
                     label = "NAMA LENGKAP",
                     value = fullName,
@@ -166,7 +165,6 @@ fun CreateAccountScreen(
                     leadingIcon = Icons.Default.Person
                 )
 
-                // Alamat Email
                 CustomTextField(
                     label = "ALAMAT EMAIL",
                     value = email,
@@ -182,20 +180,20 @@ fun CreateAccountScreen(
                         text = "KATA SANDI",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
-                        color = TextMuted,
+                        color = Muted,
                         letterSpacing = 0.5.sp
                     )
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        placeholder = { Text("Minimal 8 karakter", color = Color(0xFF94A3B8), fontSize = 13.sp) },
-                        leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Color(0xFF94A3B8), modifier = Modifier.size(18.dp)) },
+                        placeholder = { Text("Minimal 8 karakter", color = Muted, fontSize = 13.sp) },
+                        leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp)) },
                         trailingIcon = {
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                 Icon(
                                     imageVector = if (passwordVisible) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
                                     contentDescription = null,
-                                    tint = Color(0xFF94A3B8),
+                                    tint = Muted,
                                     modifier = Modifier.size(18.dp)
                                 )
                             }
@@ -205,10 +203,12 @@ fun CreateAccountScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = PrimaryIndigo,
-                            unfocusedBorderColor = SlateBorder,
-                            focusedContainerColor = Color.White,
-                            unfocusedContainerColor = SlateBackground
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border,
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText
                         ),
                         singleLine = true
                     )
@@ -227,22 +227,22 @@ fun CreateAccountScreen(
                 Checkbox(
                     checked = agreedToTerms,
                     onCheckedChange = { agreedToTerms = it },
-                    colors = CheckboxDefaults.colors(checkedColor = PrimaryIndigo)
+                    colors = CheckboxDefaults.colors(checkedColor = Purple, uncheckedColor = Muted)
                 )
                 Text(
                     text = buildAnnotatedString {
                         append("Saya menyetujui ")
-                        withStyle(SpanStyle(color = PrimaryIndigo, fontWeight = FontWeight.Bold)) {
+                        withStyle(SpanStyle(color = Blue, fontWeight = FontWeight.Bold)) {
                             append("Syarat & Ketentuan")
                         }
                         append(" serta ")
-                        withStyle(SpanStyle(color = PrimaryIndigo, fontWeight = FontWeight.Bold)) {
+                        withStyle(SpanStyle(color = Blue, fontWeight = FontWeight.Bold)) {
                             append("Kebijakan Privasi")
                         }
                         append(" yang berlaku.")
                     },
                     fontSize = 12.sp,
-                    color = TextMuted,
+                    color = Muted,
                     lineHeight = 16.sp,
                     modifier = Modifier.clickable { agreedToTerms = !agreedToTerms }
                 )
@@ -255,7 +255,7 @@ fun CreateAccountScreen(
                     .fillMaxWidth()
                     .height(54.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = PrimaryIndigo),
+                colors = ButtonDefaults.buttonColors(containerColor = Purple),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
             ) {
                 Row(
@@ -283,14 +283,14 @@ fun CreateAccountScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Divider(modifier = Modifier.weight(1f), color = SlateBorder)
+                HorizontalDivider(modifier = Modifier.weight(1f), color = Border)
                 Text(
                     text = "atau daftar dengan",
                     modifier = Modifier.padding(horizontal = 12.dp),
                     fontSize = 11.sp,
-                    color = TextMuted
+                    color = Muted
                 )
-                Divider(modifier = Modifier.weight(1f), color = SlateBorder)
+                HorizontalDivider(modifier = Modifier.weight(1f), color = Border)
             }
 
             // Tombol Sosial Google & Apple
@@ -304,10 +304,10 @@ fun CreateAccountScreen(
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(14.dp),
-                    border = BorderStroke(1.dp, SlateBorder),
-                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White)
+                    border = BorderStroke(1.dp, Border),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Panel2)
                 ) {
-                    Text(text = "Google", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = TextDark)
+                    Text(text = "Google", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MainText)
                 }
 
                 OutlinedButton(
@@ -316,10 +316,10 @@ fun CreateAccountScreen(
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(14.dp),
-                    border = BorderStroke(1.dp, SlateBorder),
-                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White)
+                    border = BorderStroke(1.dp, Border),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Panel2)
                 ) {
-                    Text(text = "Apple", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = TextDark)
+                    Text(text = "Apple", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MainText)
                 }
             }
 
@@ -334,14 +334,14 @@ fun CreateAccountScreen(
                 Text(
                     text = "Sudah punya akun? ",
                     fontSize = 12.sp,
-                    color = TextMuted
+                    color = Muted
                 )
                 TextButton(onClick = onLoginClicked, contentPadding = PaddingValues(0.dp)) {
                     Text(
                         text = "Masuk di sini >",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
-                        color = PrimaryIndigo
+                        color = Blue
                     )
                 }
             }
@@ -360,14 +360,14 @@ fun RoleCard(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     onClick: () -> Unit
 ) {
-    val borderColor = if (isSelected) PrimaryIndigo else SlateBorder
-    val backgroundColor = if (isSelected) LightIndigoBg.copy(alpha = 0.5f) else Color.White
+    val borderColor = if (isSelected) Blue else Border
+    val backgroundColor = if (isSelected) PubBlue else Panel
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .border(2.dp, borderColor, RoundedCornerShape(16.dp))
+            .border(if (isSelected) 2.dp else 1.dp, borderColor, RoundedCornerShape(16.dp))
             .background(backgroundColor)
             .clickable { onClick() }
             .padding(14.dp)
@@ -377,23 +377,21 @@ fun RoleCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            // Icon Kotak Peran
             Box(
                 modifier = Modifier
                     .size(42.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(if (isSelected) PrimaryIndigo else SlateBackground),
+                    .background(if (isSelected) Purple else Panel2),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = if (isSelected) Color.White else PrimaryIndigo,
+                    tint = Color.White,
                     modifier = Modifier.size(20.dp)
                 )
             }
 
-            // Keterangan Teks
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -403,15 +401,15 @@ fun RoleCard(
                         text = title,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (isSelected) TextDark else TextMuted
+                        color = MainText
                     )
                     Surface(
                         color = badgeColor,
-                        shape = RoundedCornerShape(50)
+                        shape = RoundedCornerShape(6.dp)
                     ) {
                         Text(
                             text = badgeText,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
                             color = badgeTextColor,
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold
@@ -420,18 +418,23 @@ fun RoleCard(
                 }
                 Text(
                     text = subtitle,
-                    fontSize = 11.sp,
-                    color = TextMuted
+                    fontSize = 12.sp,
+                    color = Muted
                 )
             }
 
-            // Radio / Check Icon Indikator
             Box(
                 modifier = Modifier
-                    .size(22.dp)
-                    .clip(CircleShape)
-                    .background(if (isSelected) PrimaryIndigo else Color.Transparent)
-                    .border(2.dp, if (isSelected) PrimaryIndigo else SlateBorder, CircleShape),
+                    .size(20.dp)
+                    .border(
+                        1.5.dp,
+                        if (isSelected) Blue else Border,
+                        CircleShape
+                    )
+                    .background(
+                        if (isSelected) Blue else Color.Transparent,
+                        CircleShape
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 if (isSelected) {
@@ -461,23 +464,25 @@ fun CustomTextField(
             text = label,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
-            color = TextMuted,
+            color = Muted,
             letterSpacing = 0.5.sp
         )
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            placeholder = { Text(placeholder, color = Color(0xFF94A3B8), fontSize = 13.sp) },
-            leadingIcon = { Icon(leadingIcon, contentDescription = null, tint = Color(0xFF94A3B8), modifier = Modifier.size(18.dp)) },
+            placeholder = { Text(placeholder, color = Muted, fontSize = 13.sp) },
+            leadingIcon = { Icon(leadingIcon, contentDescription = null, tint = Muted, modifier = Modifier.size(18.dp)) },
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(14.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = PrimaryIndigo,
-                unfocusedBorderColor = SlateBorder,
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = SlateBackground
+                focusedBorderColor = Blue,
+                unfocusedBorderColor = Border,
+                focusedContainerColor = Panel2,
+                unfocusedContainerColor = Panel2,
+                focusedTextColor = MainText,
+                unfocusedTextColor = MainText
             ),
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             singleLine = true
         )
     }
@@ -485,55 +490,47 @@ fun CustomTextField(
 
 @Composable
 fun PasswordStrengthIndicator(password: String) {
-    val strengthText = when {
-        password.isEmpty() -> "Belum diisi"
-        password.length < 6 -> "Lemah"
-        password.length < 8 -> "Cukup"
-        else -> "Kuat"
+    val strength = when {
+        password.isEmpty() -> 0
+        password.length < 6 -> 1
+        password.length < 10 -> 2
+        else -> 3
     }
 
-    val strengthColor = when (strengthText) {
-        "Lemah" -> Color(0xFFF43F5E)
-        "Cukup" -> Color(0xFFF59E0B)
-        "Kuat" -> Color(0xFF10B981)
-        else -> Color(0xFF94A3B8)
+    val (label, color) = when (strength) {
+        1 -> "Lemah" to Red
+        2 -> "Sedang" to Amber
+        3 -> "Kuat" to Green
+        else -> "" to Color.Transparent
     }
 
-    val activeBars = when (strengthText) {
-        "Lemah" -> 1
-        "Cukup" -> 2
-        "Kuat" -> 4
-        else -> 0
-    }
-
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Kekuatan Kata Sandi", fontSize = 11.sp, color = TextMuted)
-            Text(text = strengthText, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = strengthColor)
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            for (i in 1..4) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(4.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(if (i <= activeBars) strengthColor else SlateBorder)
-                )
+    if (password.isNotEmpty()) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                repeat(3) { index ->
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(4.dp)
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(if (index < strength) color else Panel2)
+                    )
+                }
             }
+            Text(
+                text = "Kekuatan Sandi: $label",
+                fontSize = 11.sp,
+                color = color,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 392, heightDp = 850)
+@Preview(showBackground = true)
 @Composable
 fun CreateAccountScreenPreview() {
     CreateAccountScreen(onLoginClicked = {})

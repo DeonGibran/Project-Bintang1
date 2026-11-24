@@ -1,5 +1,6 @@
 package com.bintangg.finalproject.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,17 +17,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.navigation.AppRoute
-
-private val BackgroundWhite = Color(0xFFFFFFFF)
-private val PrimaryBlue = Color(0xFF0052CC)
-private val TextSelectedWhite = Color(0xFFFFFFFF)
-private val TextUnselectedDark = Color(0xFF64748B)
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.screens.PubBlue
 
 private data class BottomNavigationItem(
     val destination: AppRoute,
@@ -46,11 +46,12 @@ fun CustomBottomNavigationBar(
     onNavigate: (AppRoute) -> Unit
 ) {
     NavigationBar(
-        containerColor = BackgroundWhite,
+        containerColor = Panel,
         tonalElevation = 8.dp,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+            .border(1.dp, Border, RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
     ) {
         bottomNavigationItems.forEach { item ->
             val isSelected = currentRoute == item.destination
@@ -70,18 +71,18 @@ fun CustomBottomNavigationBar(
                 selected = isSelected,
                 onClick = { onNavigate(item.destination) },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = PrimaryBlue,
-                    selectedIconColor = TextSelectedWhite,
-                    selectedTextColor = PrimaryBlue,
-                    unselectedIconColor = TextUnselectedDark,
-                    unselectedTextColor = TextUnselectedDark
+                    indicatorColor = PubBlue,
+                    selectedIconColor = Blue,
+                    selectedTextColor = Blue,
+                    unselectedIconColor = Muted,
+                    unselectedTextColor = Muted
                 )
             )
         }
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF1E1E1E)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17)
 @Composable
 fun CustomBottomNavigationBarPreview() {
     Row(modifier = Modifier.padding(top = 50.dp)) {

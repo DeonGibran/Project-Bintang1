@@ -1,5 +1,6 @@
 package com.bintangg.finalproject.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -23,23 +24,17 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AddCategoryScreen(onBack: () -> Unit) {
-    // 1. Inisialisasi Coroutine Scope untuk eksekusi fungsi suspend
     val coroutineScope = rememberCoroutineScope()
 
-    // 2. Deklarasi State input form
     var namaKategori by remember { mutableStateOf("") }
     var keterangan by remember { mutableStateOf("") }
 
-    // 3. Deklarasi State status proses dan notifikasi error
     var isSaving by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    val primaryPurple = Color(0xFF5C3399)
-    val backgroundLight = Color(0xFFF8F9FA)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFF4F5F7)
+        color = AppBg
     ) {
         Column(
             modifier = Modifier
@@ -57,6 +52,7 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Kembali",
+                    tint = MainText,
                     modifier = Modifier
                         .size(24.dp)
                         .clickable { onBack() }
@@ -66,14 +62,15 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                     text = "Tambah Kategori Baru",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MainText
                 )
             }
 
             // Card Form Input
             Card(
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
+                colors = CardDefaults.cardColors(containerColor = Panel),
+                border = BorderStroke(1.dp, Border),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -86,12 +83,12 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                         text = "Informasi Kategori",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = MainText
                     )
                     Text(
                         text = "Masukkan pengelompokan mata pelajaran baru ke dalam sistem.",
                         fontSize = 12.sp,
-                        color = Color.Gray,
+                        color = Muted,
                         modifier = Modifier.padding(top = 2.dp, bottom = 16.dp)
                     )
 
@@ -100,21 +97,23 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                         text = "Nama Kategori *",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.DarkGray
+                        color = Muted
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     OutlinedTextField(
                         value = namaKategori,
                         onValueChange = { namaKategori = it },
-                        placeholder = { Text("Contoh: Kalkulus & Aljabar", fontSize = 13.sp) },
+                        placeholder = { Text("Contoh: Kalkulus & Aljabar", fontSize = 13.sp, color = Muted) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = primaryPurple,
-                            unfocusedBorderColor = Color.LightGray,
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border,
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText
                         )
                     )
 
@@ -125,31 +124,33 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                         text = "Keterangan",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.DarkGray
+                        color = Muted
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     OutlinedTextField(
                         value = keterangan,
                         onValueChange = { keterangan = it },
-                        placeholder = { Text("Deskripsi materi atau silabus kategori...", fontSize = 13.sp) },
+                        placeholder = { Text("Deskripsi materi atau silabus kategori...", fontSize = 13.sp, color = Muted) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(90.dp),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = primaryPurple,
-                            unfocusedBorderColor = Color.LightGray,
-                            focusedContainerColor = backgroundLight,
-                            unfocusedContainerColor = backgroundLight
+                            focusedBorderColor = Blue,
+                            unfocusedBorderColor = Border,
+                            focusedContainerColor = Panel2,
+                            unfocusedContainerColor = Panel2,
+                            focusedTextColor = MainText,
+                            unfocusedTextColor = MainText
                         )
                     )
 
-                    // Tampilkan Error Box jika terjadi kesalahan jaringan
+                    // Tampilkan Error Box jika terjadi kesalahan
                     errorMessage?.let { msg ->
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
                             text = msg,
-                            color = Color(0xFFDC2626),
+                            color = Red,
                             fontSize = 12.sp
                         )
                     }
@@ -168,9 +169,10 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                                 .weight(1f)
                                 .height(48.dp),
                             shape = RoundedCornerShape(24.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.DarkGray)
+                            border = BorderStroke(1.dp, Border),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Muted)
                         ) {
-                            Text(text = "Batal", fontWeight = FontWeight.Bold)
+                            Text(text = "Batal", fontWeight = FontWeight.Bold, color = Muted)
                         }
 
                         Button(
@@ -179,31 +181,25 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                                     isSaving = true
                                     errorMessage = null
                                     try {
-                                        // 4. Instansiasi objek Category dari nilai form
                                         val newCategory = Category(
                                             name = namaKategori.trim(),
                                             description = keterangan.trim().ifBlank { null }
                                         )
-
-                                        // 5. Eksekusi fungsi insert di CategoryRepository
                                         CategoryRepository.addCategory(newCategory)
-
-                                        // 6. Jika berhasil, tutup form dan kembali
                                         onBack()
                                     } catch (e: Exception) {
-                                        errorMessage = "Gagal menyimpan: \${e.localizedMessage}"
+                                        errorMessage = "Gagal menyimpan: ${e.localizedMessage}"
                                     } finally {
                                         isSaving = false
                                     }
                                 }
                             },
-                            // Validasi: tombol aktif jika nama tidak kosong & tidak sedang saving
                             enabled = namaKategori.isNotBlank() && !isSaving,
                             modifier = Modifier
                                 .weight(1.5f)
                                 .height(48.dp),
                             shape = RoundedCornerShape(24.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = primaryPurple)
+                            colors = ButtonDefaults.buttonColors(containerColor = Purple)
                         ) {
                             if (isSaving) {
                                 CircularProgressIndicator(
@@ -212,9 +208,9 @@ fun AddCategoryScreen(onBack: () -> Unit) {
                                     strokeWidth = 2.dp
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
-                                Text(text = "Menyimpan...", fontSize = 12.sp)
+                                Text(text = "Menyimpan...", fontSize = 12.sp, color = Color.White)
                             } else {
-                                Icon(imageVector = Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Icon(imageVector = Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(text = "Simpan Kategori", fontWeight = FontWeight.Bold, color = Color.White)
                             }

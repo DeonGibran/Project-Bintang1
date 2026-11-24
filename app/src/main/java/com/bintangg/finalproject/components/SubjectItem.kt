@@ -21,17 +21,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bintangg.finalproject.screens.BackgroundWhite
-import com.bintangg.finalproject.screens.BorderLightGray
-import com.bintangg.finalproject.screens.IconBgLight
-import com.bintangg.finalproject.screens.IconBlueGray
-import com.bintangg.finalproject.screens.TextDark
-import com.bintangg.finalproject.screens.TextGray
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.screens.Panel2
 
 @Composable
 fun SubjectItem(
@@ -42,9 +41,9 @@ fun SubjectItem(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = BackgroundWhite,
-        shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(1.dp, BorderLightGray)
+        color = Panel,
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, Border)
     ) {
         Row(
             modifier = Modifier
@@ -56,13 +55,13 @@ fun SubjectItem(
             Box(
                 modifier = Modifier
                     .size(48.dp)
-                    .background(IconBgLight, RoundedCornerShape(12.dp)),
+                    .background(Panel2, RoundedCornerShape(12.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = IconBlueGray,
+                    tint = Blue,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -73,14 +72,14 @@ fun SubjectItem(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
-                    color = TextDark,
+                    color = MainText,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = subtitle,
-                    color = TextGray,
+                    color = Muted,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal
                 )
@@ -91,14 +90,14 @@ fun SubjectItem(
                 Icon(
                     imageVector = Icons.Outlined.CheckCircleOutline,
                     contentDescription = "Selesai",
-                    tint = Color(0xFFB0BEC5), // Warna abu-abu terang sesuai gambar
+                    tint = Muted,
                     modifier = Modifier.size(24.dp)
                 )
             } else {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = "Lanjut",
-                    tint = Color(0xFFB0BEC5),
+                    tint = Muted,
                     modifier = Modifier.size(24.dp)
                 )
             }

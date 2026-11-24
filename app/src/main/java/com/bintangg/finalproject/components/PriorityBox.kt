@@ -13,13 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bintangg.finalproject.screens.BorderGrey
-import com.bintangg.finalproject.screens.PrimaryBlue
-import com.bintangg.finalproject.screens.TextLabelGrey
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel2
+import com.bintangg.finalproject.screens.PubBlue
 
 @Composable
 fun PriorityBox(text: String, isSelected: Boolean) {
@@ -27,12 +28,12 @@ fun PriorityBox(text: String, isSelected: Boolean) {
         modifier = Modifier
             .width(80.dp)
             .height(36.dp)
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(8.dp))
             .border(
-                border = BorderStroke(1.dp, if (isSelected) PrimaryBlue else BorderGrey),
-                shape = RoundedCornerShape(4.dp)
+                border = BorderStroke(1.dp, if (isSelected) Blue else Border),
+                shape = RoundedCornerShape(8.dp)
             )
-            .background(if (isSelected) PrimaryBlue.copy(alpha = 0.05f) else Color.Transparent)
+            .background(if (isSelected) PubBlue else Panel2)
             .clickable { /* Aksi ubah prioritas */ },
         contentAlignment = Alignment.Center
     ) {
@@ -40,7 +41,7 @@ fun PriorityBox(text: String, isSelected: Boolean) {
             text = text,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            color = if (isSelected) PrimaryBlue else TextLabelGrey
+            color = if (isSelected) Blue else Muted
         )
     }
 }

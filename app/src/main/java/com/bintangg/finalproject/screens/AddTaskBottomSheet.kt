@@ -52,36 +52,40 @@ import com.bintangg.finalproject.data.Task
 import com.bintangg.finalproject.data.TaskRepository
 import kotlinx.coroutines.launch
 
-// --- Palet Warna ---
-val OverlayDark = Color(0x66000000) // Transparan gelap untuk background
-val TextLabelGrey = Color(0xFF475569)
-val TextPlaceholderGrey = Color(0xFF94A3B8)
-val BorderGrey = Color(0xFFE2E8F0)
-val DragHandleGrey = Color(0xFFCBD5E1)
+// --- Palet Warna (Kompatibilitas Backward) ---
+val OverlayDark = Color(0x99000000)
+val TextLabelGrey = Muted
+val TextPlaceholderGrey = Muted
+val BorderGrey = Border
+val DragHandleGrey = Border
+
 @Composable
 fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
-    val scope = rememberCoroutineScope ()
-    var title by remember { mutableStateOf(value = "")  }
+    val scope = rememberCoroutineScope()
+    var title by remember { mutableStateOf(value = "") }
     var subject by remember { mutableStateOf("") }
     var start_date by remember { mutableStateOf("") }
     var due_date by remember { mutableStateOf("") }
     var priority by remember { mutableStateOf("Sedang") }
     var isSaving by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    // Kontainer layar penuh dengan background gelap semi-transparan
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(OverlayDark)
     ) {
-        // Konten Bottom Sheet
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .background(
-                    color = BackgroundWhite,
-                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    color = Panel,
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                )
+                .border(
+                    BorderStroke(1.dp, Border),
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
                 )
                 .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
@@ -90,7 +94,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                 modifier = Modifier
                     .width(40.dp)
                     .height(4.dp)
-                    .background(DragHandleGrey, RoundedCornerShape(2.dp))
+                    .background(Border, RoundedCornerShape(2.dp))
                     .align(Alignment.CenterHorizontally)
             )
 
@@ -106,7 +110,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                     text = "Tambah Tugas",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextDark
+                    color = MainText
                 )
                 IconButton(
                     onClick = { onBack() },
@@ -115,7 +119,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Tutup",
-                        tint = TextDark
+                        tint = MainText
                     )
                 }
             }
@@ -126,9 +130,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
             CustomInputField(
                 label = "Judul Tugas",
                 value = title,
-                onValueChange = {
-                    title = it
-                },
+                onValueChange = { title = it },
                 placeholder = "Masukkan judul..."
             )
 
@@ -138,16 +140,14 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
             CustomInputField(
                 label = "Mata Pelajaran",
                 value = subject,
-                onValueChange = {
-                    subject = it
-                },
+                onValueChange = { subject = it },
                 placeholder = "Pilih mata pelajaran",
                 trailingIcon = Icons.Outlined.KeyboardArrowDown
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Row: Tenggat Waktu & Jam
+            // Row: Tanggal Mulai & Tanggal Selesai
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -156,9 +156,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                     CustomInputField(
                         label = "Tanggal Mulai",
                         value = start_date,
-                        onValueChange = {
-                            start_date = it
-                        },
+                        onValueChange = { start_date = it },
                         placeholder = "dd/mm/yyyy",
                         trailingIcon = Icons.Outlined.CalendarToday
                     )
@@ -167,9 +165,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                     CustomInputField(
                         label = "Tanggal Selesai",
                         value = due_date,
-                        onValueChange = {
-                            due_date = it
-                        },
+                        onValueChange = { due_date = it },
                         placeholder = "--:--",
                         trailingIcon = Icons.Outlined.Schedule
                     )
@@ -182,25 +178,23 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
             CustomInputField(
                 label = "Priority",
                 value = priority,
-                onValueChange = {
-                    priority = it
-                },
+                onValueChange = { priority = it },
                 placeholder = "priority",
                 trailingIcon = Icons.Outlined.Schedule
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                PriorityBox(text = "Tinggi", isSelected = false)
-                PriorityBox(text = "Sedang", isSelected = true)
-                PriorityBox(text = "Rendah", isSelected = false)
+                PriorityBox(text = "Tinggi", isSelected = priority == "Tinggi")
+                PriorityBox(text = "Sedang", isSelected = priority == "Sedang")
+                PriorityBox(text = "Rendah", isSelected = priority == "Rendah")
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
-            HorizontalDivider(color = BorderGrey, thickness = 1.dp)
             Spacer(modifier = Modifier.height(24.dp))
+            HorizontalDivider(color = Border, thickness = 1.dp)
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Tombol Simpan Tugas
             Button(
@@ -211,7 +205,7 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                         try {
                             TaskRepository.addTask(
                                 Task(
-                                   nama_task = title,
+                                    nama_task = title,
                                     category_id = null,
                                     user_id = null,
                                     status = "ongoing",
@@ -232,8 +226,8 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
-                shape = RoundedCornerShape(4.dp)
+                colors = ButtonDefaults.buttonColors(containerColor = Purple),
+                shape = RoundedCornerShape(24.dp)
             ) {
                 Text(
                     text = if (isSaving) "Menyimpan..." else "Simpan Tugas",
@@ -245,18 +239,12 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
 
             Spacer(modifier = Modifier.height(8.dp))
             errorMessage?.let {
-                Text(text = it, color = Color(0xFFB42318), fontSize = 12.sp)
+                Text(text = it, color = Red, fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
-
-// --- Komponen Reusable untuk Input Field ---
-
-
-// --- Komponen Reusable untuk Kotak Prioritas ---
-
 
 @Preview(showBackground = true)
 @Composable

@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-// Enum untuk Pilihan Peran Login
 enum class LoginRole {
     SISWA, GURU
 }
@@ -47,13 +46,9 @@ fun LoginScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     var rememberMe by remember { mutableStateOf(false) }
 
-    val primaryColor = Color(0xFF4F46E5) // Indigo / Ungu khas aplikasi
-    val backgroundColor = Color(0xFFF8FAFC)
-    val cardBackground = Color(0xFFF1F5F9)
-
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = backgroundColor
+        color = AppBg
     ) {
         Column(
             modifier = Modifier
@@ -69,7 +64,8 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)
-                    .background(Color(0xFFE2E8F0), RoundedCornerShape(24.dp))
+                    .background(Panel, RoundedCornerShape(24.dp))
+                    .border(BorderStroke(1.dp, Border), RoundedCornerShape(24.dp))
                     .padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -78,13 +74,13 @@ fun LoginScreen(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
-                        .background(Color.White, RoundedCornerShape(20.dp)),
+                        .background(Panel2, RoundedCornerShape(20.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "Masuk",
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black,
+                        color = MainText,
                         fontSize = 14.sp
                     )
                 }
@@ -99,7 +95,7 @@ fun LoginScreen(
                     Text(
                         text = "Daftar",
                         fontWeight = FontWeight.Medium,
-                        color = Color.Gray,
+                        color = Muted,
                         fontSize = 14.sp
                     )
                 }
@@ -109,7 +105,7 @@ fun LoginScreen(
 
             // Badge Sambutan
             Surface(
-                color = Color(0xFFEEF2FF),
+                color = PubBlue,
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Row(
@@ -120,7 +116,7 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "Selamat Datang Kembali",
-                        color = primaryColor,
+                        color = Blue,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -134,7 +130,7 @@ fun LoginScreen(
                 text = "Masuk ke Akun",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF0F172A)
+                color = MainText
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -143,7 +139,7 @@ fun LoginScreen(
             Text(
                 text = "Masukkan email dan kata sandi yang telah terdaftar untuk melanjutkan belajarmu.",
                 fontSize = 13.sp,
-                color = Color.Gray,
+                color = Muted,
                 modifier = Modifier.padding(horizontal = 16.dp),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
@@ -154,17 +150,17 @@ fun LoginScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(cardBackground, RoundedCornerShape(16.dp))
+                    .background(Panel, RoundedCornerShape(16.dp))
+                    .border(BorderStroke(1.dp, Border), RoundedCornerShape(16.dp))
                     .padding(4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // Tab Siswa / Pelajar
                 val isSiswa = selectedRole == LoginRole.SISWA
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(if (isSiswa) Color.White else Color.Transparent)
+                        .background(if (isSiswa) PubBlue else Color.Transparent)
                         .clickable { selectedRole = LoginRole.SISWA }
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
@@ -175,19 +171,18 @@ fun LoginScreen(
                         Text(
                             text = "Siswa / Pelajar",
                             fontWeight = if (isSiswa) FontWeight.Bold else FontWeight.Medium,
-                            color = if (isSiswa) primaryColor else Color.Gray,
+                            color = if (isSiswa) Blue else Muted,
                             fontSize = 13.sp
                         )
                     }
                 }
 
-                // Tab Guru / Pendidik
                 val isGuru = selectedRole == LoginRole.GURU
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(if (isGuru) Color.White else Color.Transparent)
+                        .background(if (isGuru) PubBlue else Color.Transparent)
                         .clickable { selectedRole = LoginRole.GURU }
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
@@ -198,7 +193,7 @@ fun LoginScreen(
                         Text(
                             text = "Guru / Pendidik",
                             fontWeight = if (isGuru) FontWeight.Bold else FontWeight.Medium,
-                            color = if (isGuru) primaryColor else Color.Gray,
+                            color = if (isGuru) Blue else Muted,
                             fontSize = 13.sp
                         )
                     }
@@ -211,7 +206,8 @@ fun LoginScreen(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
-                color = Color.White,
+                color = Panel,
+                border = BorderStroke(1.dp, Border),
                 shadowElevation = 2.dp
             ) {
                 Column(
@@ -223,42 +219,46 @@ fun LoginScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "Alamat Email", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF334155))
+                        Text(text = "Alamat Email", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MainText)
                         Text(
                             text = if (selectedRole == LoginRole.SISWA) "Akun Pelajar" else "Akun Pengajar",
                             fontSize = 11.sp,
-                            color = Color.Gray
+                            color = Muted
                         )
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
-                        placeholder = { Text("nama@email.com", color = Color.LightGray, fontSize = 14.sp) },
-                        leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = Color.Gray) },
+                        placeholder = { Text("nama@email.com", color = Muted, fontSize = 14.sp) },
+                        leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = Muted) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
-                            unfocusedBorderColor = Color(0xFFE2E8F0),
-                            focusedBorderColor = primaryColor
+                            unfocusedBorderColor = Border,
+                            focusedBorderColor = Blue,
+                            unfocusedContainerColor = Panel2,
+                            focusedContainerColor = Panel2,
+                            unfocusedTextColor = MainText,
+                            focusedTextColor = MainText
                         )
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
                     // Field Kata Sandi
-                    Text(text = "Kata Sandi", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF334155))
+                    Text(text = "Kata Sandi", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MainText)
                     Spacer(modifier = Modifier.height(6.dp))
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        placeholder = { Text("Masukkan kata sandi", color = Color.LightGray, fontSize = 14.sp) },
-                        leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Color.Gray) },
+                        placeholder = { Text("Masukkan kata sandi", color = Muted, fontSize = 14.sp) },
+                        leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = Muted) },
                         trailingIcon = {
                             val image = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = image, contentDescription = null, tint = Color.Gray)
+                                Icon(imageVector = image, contentDescription = null, tint = Muted)
                             }
                         },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -267,8 +267,12 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
-                            unfocusedBorderColor = Color(0xFFE2E8F0),
-                            focusedBorderColor = primaryColor
+                            unfocusedBorderColor = Border,
+                            focusedBorderColor = Blue,
+                            unfocusedContainerColor = Panel2,
+                            focusedContainerColor = Panel2,
+                            unfocusedTextColor = MainText,
+                            focusedTextColor = MainText
                         )
                     )
 
@@ -284,15 +288,15 @@ fun LoginScreen(
                             Checkbox(
                                 checked = rememberMe,
                                 onCheckedChange = { rememberMe = it },
-                                colors = CheckboxDefaults.colors(checkedColor = primaryColor)
+                                colors = CheckboxDefaults.colors(checkedColor = Purple, uncheckedColor = Muted)
                             )
-                            Text(text = "Ingat Saya", fontSize = 13.sp, color = Color(0xFF475569))
+                            Text(text = "Ingat Saya", fontSize = 13.sp, color = Muted)
                         }
                         Text(
                             text = "Lupa Kata Sandi?",
                             fontSize = 13.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = primaryColor,
+                            color = Blue,
                             modifier = Modifier.clickable { onForgotPasswordClicked() }
                         )
                     }
@@ -311,19 +315,19 @@ fun LoginScreen(
                                 .weight(1f)
                                 .height(50.dp),
                             shape = RoundedCornerShape(14.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = primaryColor)
+                            colors = ButtonDefaults.buttonColors(containerColor = Purple)
                         ) {
-                            Text(text = "Masuk Sekarang →", fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                            Text(text = "Masuk Sekarang →", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.White)
                         }
 
                         // Tombol Biometrik / Sidik Jari
                         Surface(
                             modifier = Modifier
                                 .size(50.dp)
-                                .border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(14.dp))
+                                .border(1.dp, Border, RoundedCornerShape(14.dp))
                                 .clickable { },
                             shape = RoundedCornerShape(14.dp),
-                            color = Color(0xFFF8FAFC)
+                            color = Panel2
                         ) {
                             Box(contentAlignment = Alignment.Center) {
                                 Text(text = "👆", fontSize = 20.sp)
@@ -340,14 +344,14 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Divider(modifier = Modifier.weight(1f), color = Color(0xFFE2E8F0))
+                HorizontalDivider(modifier = Modifier.weight(1f), color = Border)
                 Text(
                     text = " ATAU MASUK DENGAN ",
                     fontSize = 11.sp,
-                    color = Color.Gray,
+                    color = Muted,
                     fontWeight = FontWeight.Medium
                 )
-                Divider(modifier = Modifier.weight(1f), color = Color(0xFFE2E8F0))
+                HorizontalDivider(modifier = Modifier.weight(1f), color = Border)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -357,30 +361,28 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Google Button
                 OutlinedButton(
                     onClick = { onGoogleLoginClicked() },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Color(0xFFE2E8F0)),
-                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White)
+                    border = BorderStroke(1.dp, Border),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Panel2)
                 ) {
-                    Text(text = "🌐 Google", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color.Black)
+                    Text(text = "🌐 Google", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MainText)
                 }
 
-                // Apple Button
                 OutlinedButton(
                     onClick = { onAppleLoginClicked() },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Color(0xFFE2E8F0)),
-                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.White)
+                    border = BorderStroke(1.dp, Border),
+                    colors = ButtonDefaults.outlinedButtonColors(containerColor = Panel2)
                 ) {
-                    Text(text = "🍎 Apple", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color.Black)
+                    Text(text = "🍎 Apple", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MainText)
                 }
             }
 
@@ -390,7 +392,8 @@ fun LoginScreen(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                color = Color(0xFFEEF2FF)
+                color = Panel,
+                border = BorderStroke(1.dp, Border)
             ) {
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -398,7 +401,7 @@ fun LoginScreen(
                 ) {
                     Surface(
                         shape = RoundedCornerShape(10.dp),
-                        color = primaryColor,
+                        color = PubBlue,
                         modifier = Modifier.size(36.dp)
                     ) {
                         Box(contentAlignment = Alignment.Center) {
@@ -411,12 +414,12 @@ fun LoginScreen(
                             text = "Lebih dari 120.000 Pelajar Aktif",
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF1E293B)
+                            color = MainText
                         )
                         Text(
                             text = "Gabung ruang diskusi & materi interaktif terb...",
                             fontSize = 11.sp,
-                            color = Color.Gray
+                            color = Muted
                         )
                     }
                 }
@@ -429,13 +432,13 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Belum punya akun?", fontSize = 13.sp, color = Color.Gray)
+                Text(text = "Belum punya akun?", fontSize = 13.sp, color = Muted)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "Daftar sekarang →",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
-                    color = primaryColor,
+                    color = Blue,
                     modifier = Modifier.clickable { onRegisterRedirectClicked() }
                 )
             }
@@ -443,7 +446,6 @@ fun LoginScreen(
     }
 }
 
-// Preview untuk Android Studio
 @Preview(showBackground = true, widthDp = 392, heightDp = 800)
 @Composable
 fun LoginScreenPreview() {

@@ -26,14 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bintangg.finalproject.screens.BackgroundWhite
-import com.bintangg.finalproject.screens.BadgeBgGrey
-import com.bintangg.finalproject.screens.BadgeBgRed
-import com.bintangg.finalproject.screens.BadgeTextGrey
-import com.bintangg.finalproject.screens.BadgeTextRed
-import com.bintangg.finalproject.screens.CardBorderGrey
-import com.bintangg.finalproject.screens.TextPrimary
-import com.bintangg.finalproject.screens.TextSecondary
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.screens.Panel2
+import com.bintangg.finalproject.screens.PubBlue
+import com.bintangg.finalproject.screens.Red
 
 @Composable
 fun ReminderCard(
@@ -48,9 +47,9 @@ fun ReminderCard(
         modifier = Modifier
             .width(240.dp)
             .height(140.dp),
-        colors = CardDefaults.cardColors(containerColor = BackgroundWhite),
-        border = BorderStroke(1.dp, CardBorderGrey),
-        shape = RoundedCornerShape(8.dp)
+        colors = CardDefaults.cardColors(containerColor = Panel),
+        border = BorderStroke(1.dp, Border),
+        shape = RoundedCornerShape(12.dp)
     ) {
         Column(
             modifier = Modifier
@@ -63,8 +62,8 @@ fun ReminderCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(
-                    color = if (isUrgent) BadgeBgRed else BadgeBgGrey,
-                    shape = RoundedCornerShape(4.dp)
+                    color = if (isUrgent) PubBlue else Panel2,
+                    shape = RoundedCornerShape(6.dp)
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -72,20 +71,20 @@ fun ReminderCard(
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         if (isUrgent) {
-                            Text(text = "!", color = BadgeTextRed, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text(text = "!", color = Red, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                         } else {
-                            Icon(Icons.Outlined.Book, contentDescription = null, tint = BadgeTextGrey, modifier = Modifier.size(12.dp))
+                            Icon(Icons.Outlined.Book, contentDescription = null, tint = Muted, modifier = Modifier.size(12.dp))
                         }
                         Text(
                             text = badgeType,
-                            color = if (isUrgent) BadgeTextRed else BadgeTextGrey,
+                            color = if (isUrgent) Red else Muted,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium
                         )
                     }
                 }
                 if (timeText.isNotEmpty()) {
-                    Text(text = timeText, color = TextSecondary, fontSize = 12.sp)
+                    Text(text = timeText, color = Muted, fontSize = 12.sp)
                 }
             }
 
@@ -93,7 +92,7 @@ fun ReminderCard(
 
             Text(
                 text = title,
-                color = TextPrimary,
+                color = MainText,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
@@ -102,7 +101,7 @@ fun ReminderCard(
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = description,
-                color = TextSecondary,
+                color = Muted,
                 fontSize = 13.sp,
                 lineHeight = 18.sp,
                 maxLines = 2,

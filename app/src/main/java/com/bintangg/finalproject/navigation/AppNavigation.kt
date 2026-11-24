@@ -48,6 +48,7 @@ fun AppNavigation() {
     }
 
     Scaffold(
+        containerColor = com.bintangg.finalproject.screens.AppBg,
         bottomBar = {
             if (currentRoute?.showBottomBar == true) {
                 CustomBottomNavigationBar(

@@ -26,13 +26,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bintangg.finalproject.screens.BackgroundWhite
-import com.bintangg.finalproject.screens.BorderCard
-import com.bintangg.finalproject.screens.TagBgBlue
-import com.bintangg.finalproject.screens.TagTextBlue
-import com.bintangg.finalproject.screens.TextTitleDark
-import com.bintangg.finalproject.screens.TimeTextGrey
-import com.bintangg.finalproject.screens.UrgentTextRed
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.screens.PubBlue
+import com.bintangg.finalproject.screens.Red
 
 @Composable
 fun TaskCard(
@@ -44,19 +44,19 @@ fun TaskCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = BackgroundWhite),
-        border = BorderStroke(1.dp, BorderCard),
-        shape = RoundedCornerShape(4.dp) // Sangat sedikit radius seperti di gambar
+        colors = CardDefaults.cardColors(containerColor = Panel),
+        border = BorderStroke(1.dp, Border),
+        shape = RoundedCornerShape(12.dp)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.Top
         ) {
-            // Kotak Checkbox Custom (Mengikuti bentuk kotak tegas pada referensi)
+            // Kotak Checkbox Custom
             Box(
                 modifier = Modifier
                     .size(20.dp)
-                    .border(1.dp, Color.Gray, RoundedCornerShape(2.dp))
+                    .border(1.dp, Border, RoundedCornerShape(4.dp))
                     .background(Color.Transparent)
             )
 
@@ -65,7 +65,7 @@ fun TaskCard(
             Column {
                 Text(
                     text = title,
-                    color = TextTitleDark,
+                    color = MainText,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -73,14 +73,14 @@ fun TaskCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    // Tag Biru Muda
+                    // Tag Biru Dashboard
                     Surface(
-                        color = TagBgBlue,
-                        shape = RoundedCornerShape(4.dp)
+                        color = PubBlue,
+                        shape = RoundedCornerShape(6.dp)
                     ) {
                         Text(
                             text = tag,
-                            color = TagTextBlue,
+                            color = Blue,
                             fontSize = 12.sp,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                         )
@@ -88,17 +88,17 @@ fun TaskCard(
 
                     Spacer(modifier = Modifier.width(12.dp))
 
-                    // Informasi Waktu (Merah jika mendesak, abu-abu jika normal)
+                    // Informasi Waktu (Merah jika mendesak, muted jika normal)
                     Icon(
                         imageVector = timeIcon,
                         contentDescription = null,
-                        tint = if (isUrgent) UrgentTextRed else TimeTextGrey,
+                        tint = if (isUrgent) Red else Muted,
                         modifier = Modifier.size(14.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = timeText,
-                        color = if (isUrgent) UrgentTextRed else TimeTextGrey,
+                        color = if (isUrgent) Red else Muted,
                         fontSize = 12.sp
                     )
                 }

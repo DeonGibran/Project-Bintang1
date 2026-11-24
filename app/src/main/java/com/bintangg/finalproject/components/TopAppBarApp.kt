@@ -31,6 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.R
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Panel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,30 +42,27 @@ fun TopAppBarApp(
     modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit = {}
 ) {
-    // Surface digunakan untuk memberikan background putih dan radius pada sudut atas
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        color = Color.White
+        color = Panel
     ) {
         Column {
             TopAppBar(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
-                            // Ganti R.drawable.profile_placeholder dengan resource gambar asli
                             painter = painterResource(id = R.drawable.icon),
                             contentDescription = "Profile Picture",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(44.dp)
-                                // Clip menggunakan RoundedCornerShape untuk menyamai bentuk "rounded square" pada gambar
                                 .clip(RoundedCornerShape(12.dp))
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
                             text = "Welcome Back",
-                            color = Color(0xFF004FBA), // Warna biru yang disesuaikan dengan referensi gambar
+                            color = Blue,
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
@@ -72,20 +73,18 @@ fun TopAppBarApp(
                         Icon(
                             imageVector = Icons.Outlined.Settings,
                             contentDescription = "Settings",
-                            tint = Color(0xFF333333)
+                            tint = MainText
                         )
                     }
                 },
-                // Warna transparan agar mengikuti warna Surface parent
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
                 )
             )
 
-            // Divider untuk garis bawah yang tipis
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Color(0xFFE0E0E0)
+                color = Border
             )
         }
     }
@@ -93,7 +92,7 @@ fun TopAppBarApp(
 
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFF222222, // Latar belakang gelap agar lengkungan sudut atas (putih) terlihat jelas
+    backgroundColor = 0xFF070B17,
     name = "Welcome Top App Bar"
 )
 @Composable
@@ -101,9 +100,7 @@ fun WelcomeTopAppBarPreview() {
     MaterialTheme {
         TopAppBarApp(
             modifier = Modifier.fillMaxWidth(),
-            onSettingsClick = {
-                // Aksi saat tombol pengaturan diklik pada preview (kosongkan saja)
-            }
+            onSettingsClick = {}
         )
     }
 }

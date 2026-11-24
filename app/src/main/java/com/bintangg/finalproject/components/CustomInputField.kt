@@ -12,23 +12,22 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bintangg.finalproject.screens.BorderGrey
-import com.bintangg.finalproject.screens.PrimaryBlue
-import com.bintangg.finalproject.screens.TextDark
-import com.bintangg.finalproject.screens.TextLabelGrey
-import com.bintangg.finalproject.screens.TextPlaceholderGrey
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel2
 
 @Composable
 fun CustomInputField(
     label: String,
     placeholder: String,
-    value:String = "",
+    value: String = "",
     onValueChange: (String) -> Unit = {},
     trailingIcon: ImageVector? = null
 ) {
@@ -37,7 +36,7 @@ fun CustomInputField(
             text = label,
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
-            color = TextLabelGrey
+            color = Muted
         )
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
@@ -46,7 +45,7 @@ fun CustomInputField(
             placeholder = {
                 Text(
                     text = placeholder,
-                    color = TextPlaceholderGrey,
+                    color = Muted,
                     fontSize = 13.sp
                 )
             },
@@ -55,7 +54,7 @@ fun CustomInputField(
                     Icon(
                         imageVector = trailingIcon,
                         contentDescription = null,
-                        tint = TextDark,
+                        tint = Muted,
                         modifier = Modifier.size(18.dp)
                     )
                 }
@@ -63,14 +62,14 @@ fun CustomInputField(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            textStyle = TextStyle(fontSize = 13.sp, color = TextDark),
+            textStyle = TextStyle(fontSize = 13.sp, color = MainText),
             singleLine = true,
-            shape = RoundedCornerShape(4.dp),
+            shape = RoundedCornerShape(8.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = BorderGrey,
-                focusedBorderColor = PrimaryBlue,
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent
+                unfocusedBorderColor = Border,
+                focusedBorderColor = Blue,
+                unfocusedContainerColor = Panel2,
+                focusedContainerColor = Panel2
             )
         )
     }

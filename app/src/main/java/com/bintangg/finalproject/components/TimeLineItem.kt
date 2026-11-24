@@ -27,22 +27,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.data.ScheduleStatus
-import com.bintangg.finalproject.screens.BackgroundWhite
-import com.bintangg.finalproject.screens.BadgeBgGrey
-import com.bintangg.finalproject.screens.BadgeTextGrey
-import com.bintangg.finalproject.screens.CardBgGrey
-import com.bintangg.finalproject.screens.CardBorderGrey
-import com.bintangg.finalproject.screens.StatusBlue
-import com.bintangg.finalproject.screens.StatusGrey
-import com.bintangg.finalproject.screens.StatusLightGrey
-import com.bintangg.finalproject.screens.TextPrimary
-import com.bintangg.finalproject.screens.TextSecondary
+import com.bintangg.finalproject.screens.Blue
+import com.bintangg.finalproject.screens.Border
+import com.bintangg.finalproject.screens.Green
+import com.bintangg.finalproject.screens.MainText
+import com.bintangg.finalproject.screens.Muted
+import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.screens.Panel2
+import com.bintangg.finalproject.screens.PubBlue
 
-// --- Komponen Timeline ---
 @Composable
 fun TimelineItem(
     time: String,
@@ -53,16 +51,15 @@ fun TimelineItem(
 ) {
     val isOngoing = status == ScheduleStatus.ONGOING
 
-    // Konfigurasi warna berdasarkan status
     val circleColor = when (status) {
-        ScheduleStatus.DONE -> StatusGrey
-        ScheduleStatus.ONGOING -> StatusBlue
-        ScheduleStatus.UPCOMING -> StatusLightGrey
+        ScheduleStatus.DONE -> Green
+        ScheduleStatus.ONGOING -> Blue
+        ScheduleStatus.UPCOMING -> Muted
     }
-    val cardBg = if (isOngoing) BackgroundWhite else CardBgGrey
-    val cardBorder = if (isOngoing) StatusBlue else CardBorderGrey
-    val badgeBg = if (isOngoing) StatusBlue else BadgeBgGrey
-    val badgeText = if (isOngoing) BackgroundWhite else BadgeTextGrey
+    val cardBg = Panel
+    val cardBorder = if (isOngoing) Blue else Border
+    val badgeBg = if (isOngoing) PubBlue else Panel2
+    val badgeText = if (isOngoing) Blue else Muted
     val badgeString = when (status) {
         ScheduleStatus.DONE -> "Selesai"
         ScheduleStatus.ONGOING -> "Sedang Berlangsung"
@@ -76,7 +73,6 @@ fun TimelineItem(
             modifier = Modifier.width(20.dp)
         ) {
             Spacer(modifier = Modifier.height(4.dp))
-            // Lingkaran Timeline
             Box(
                 modifier = Modifier
                     .size(12.dp)
@@ -88,18 +84,17 @@ fun TimelineItem(
                     Icon(
                         imageVector = Icons.Default.Check,
                         contentDescription = null,
-                        tint = BackgroundWhite,
+                        tint = Color.White,
                         modifier = Modifier.size(8.dp)
                     )
                 }
             }
-            // Garis vertikal
             if (!isLast) {
                 Box(
                     modifier = Modifier
                         .width(2.dp)
                         .fillMaxHeight()
-                        .background(StatusLightGrey)
+                        .background(Border)
                 )
             }
         }
@@ -114,7 +109,7 @@ fun TimelineItem(
         ) {
             Text(
                 text = time,
-                color = TextSecondary,
+                color = Muted,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -123,19 +118,17 @@ fun TimelineItem(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = cardBg),
                 border = BorderStroke(1.dp, cardBorder),
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    // Garis aksen biru di sebelah kiri khusus untuk jadwal Ongoing
                     if (isOngoing) {
                         Box(
                             modifier = Modifier
                                 .width(4.dp)
                                 .fillMaxHeight()
-                                .background(StatusBlue)
+                                .background(Blue)
                         )
                     }
-                    // Konten dalam Card Jadwal
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -148,17 +141,16 @@ fun TimelineItem(
                         ) {
                             Text(
                                 text = title,
-                                color = TextPrimary,
+                                color = MainText,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 modifier = Modifier.weight(1f)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            // Badge Status
                             Surface(
                                 color = badgeBg,
-                                shape = RoundedCornerShape(4.dp),
-                                border = if (!isOngoing) BorderStroke(1.dp, CardBorderGrey) else null
+                                shape = RoundedCornerShape(6.dp),
+                                border = if (!isOngoing) BorderStroke(1.dp, Border) else null
                             ) {
                                 Text(
                                     text = badgeString,
@@ -172,7 +164,7 @@ fun TimelineItem(
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = location,
-                            color = TextSecondary,
+                            color = Muted,
                             fontSize = 13.sp
                         )
                     }
