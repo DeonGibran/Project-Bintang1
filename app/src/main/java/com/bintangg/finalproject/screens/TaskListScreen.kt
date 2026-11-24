@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.components.TaskCard
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 // --- Palet Warna (Kompatibilitas Backward) ---
 val TabTextSelected = Blue
@@ -141,8 +142,10 @@ fun TaskListScreen(onAddTask: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17)
 @Composable
 fun TaskListScreenPreview() {
-    TaskListScreen(onAddTask = {})
+    FinalProjectTheme {
+        TaskListScreen(onAddTask = {})
+    }
 }

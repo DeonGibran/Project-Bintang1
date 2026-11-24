@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 enum class LoginRole {
     SISWA, GURU
@@ -446,8 +447,10 @@ fun LoginScreen(
     }
 }
 
-@Preview(showBackground = true, widthDp = 392, heightDp = 800)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17, widthDp = 392, heightDp = 800)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(onRegisterRedirectClicked = {})
+    FinalProjectTheme {
+        LoginScreen(onRegisterRedirectClicked = {})
+    }
 }

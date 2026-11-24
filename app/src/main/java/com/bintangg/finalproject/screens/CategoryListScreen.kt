@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 @Composable
 fun CategoryListScreen(onAddCategory: () -> Unit, onEditCategory: () -> Unit) {
@@ -344,8 +345,10 @@ fun KategoriCard(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17, showSystemUi = true)
 @Composable
 fun CategoryListScreenPreview() {
-    CategoryListScreen(onAddCategory = {}, onEditCategory = {})
+    FinalProjectTheme {
+        CategoryListScreen(onAddCategory = {}, onEditCategory = {})
+    }
 }

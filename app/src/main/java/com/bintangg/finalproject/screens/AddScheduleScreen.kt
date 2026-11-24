@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 @Composable
 fun AddScheduleScreen(onBack: () -> Unit) {
@@ -446,9 +447,12 @@ fun AuditRowItem(label: String, value: String, isHighlight: Boolean = false, pri
 @Preview(
     name = "Add Schedule - Scroll Test",
     showBackground = true,
+    backgroundColor = 0xFF070B17,
     showSystemUi = true,
 )
 @Composable
 fun AddScheduleScreenPreview() {
-    AddScheduleScreen(onBack = {})
+    FinalProjectTheme {
+        AddScheduleScreen(onBack = {})
+    }
 }

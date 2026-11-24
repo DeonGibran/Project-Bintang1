@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 val AppBg = Color(0xFF070B17)
 val PubBlue = Color(0xFF1B2048)
@@ -41,25 +42,6 @@ val Blue = Color(0xFF818BFF)
 val Green = Color(0xFF20D6A0)
 val Amber = Color(0xFFFFA51F)
 val Red = Color(0xFFFF4969)
-
-val BackgroundWhite = Color(0xFFFFFFFF)
-val TextPrimary = Color(0xFF111827)
-val TextSecondary = Color(0xFF475569) // Disesuaikan agar sedikit lebih gelap untuk jadwal
-val LinkBlue = Color(0xFF2563EB)
-
-val CardBgRed = Color(0xFFFDECEE)
-val CardBorderRed = Color(0xFFB42318)
-val BadgeBgRed = Color(0xFFFFE4E6)
-val BadgeTextRed = Color(0xFFE11D48)
-
-val BadgeBgGrey = Color(0xFFF1F5F9)
-val BadgeTextGrey = Color(0xFF475569)
-val CardBorderGrey = Color(0xFFE5E7EB)
-val CardBgGrey = Color(0xFFF8FAFC)
-
-val StatusBlue = Color(0xFF2563EB)
-val StatusGrey = Color(0xFFCBD5E1)
-val StatusLightGrey = Color(0xFFE2E8F0)
 
 @Composable
 fun DashboardScreen(
@@ -177,18 +159,20 @@ private fun TaskPreview(title: String, subtitle: String, due: String, accent: Co
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17, showSystemUi = true)
 @Composable
 fun DashBoardScreenPreview() {
-    DashboardScreen(
-        onOpenTasks = {},
-        onEditSchedule = {},
-        onAddCategory = {},
-        onAddRole = {},
-        onCreateAccount = {},
-        onAddSchedule = {},
-        onAddTask = {},
-        onEditTask = {},
-        onOpenCategories = {}
-    )
+    FinalProjectTheme {
+        DashboardScreen(
+            onOpenTasks = {},
+            onEditSchedule = {},
+            onAddCategory = {},
+            onAddRole = {},
+            onCreateAccount = {},
+            onAddSchedule = {},
+            onAddTask = {},
+            onEditTask = {},
+            onOpenCategories = {}
+        )
+    }
 }

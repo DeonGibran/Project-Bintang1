@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 @Composable
 fun EditScheduleScreen(onBack: () -> Unit) {
@@ -281,9 +282,12 @@ fun EditScheduleScreen(onBack: () -> Unit) {
 @Preview(
     name = "Edit Schedule",
     showBackground = true,
+    backgroundColor = 0xFF070B17,
     showSystemUi = true,
 )
 @Composable
 fun EditScheduleScreenPreview() {
-    EditScheduleScreen(onBack = {})
+    FinalProjectTheme {
+        EditScheduleScreen(onBack = {})
+    }
 }

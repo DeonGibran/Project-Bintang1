@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.data.Category
 import com.bintangg.finalproject.data.CategoryRepository
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -222,8 +223,10 @@ fun AddCategoryScreen(onBack: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFF070B17, showSystemUi = true)
 @Composable
 fun AddCategoryScreenPreview() {
-    AddCategoryScreen(onBack = {})
+    FinalProjectTheme {
+        AddCategoryScreen(onBack = {})
+    }
 }

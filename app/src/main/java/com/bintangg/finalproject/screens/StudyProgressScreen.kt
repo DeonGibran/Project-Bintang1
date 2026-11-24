@@ -25,6 +25,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bintangg.finalproject.components.SubjectItem
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 // -- Palet Warna (Kompatibilitas Backward) --
 val PrimaryBlue = Blue
@@ -49,13 +51,16 @@ val IconBlueGray = Blue
 
 @Composable
 fun StudyProgressScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppBg)
-            .verticalScroll(rememberScrollState())
-            .padding(vertical = 24.dp, horizontal = 20.dp)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppBg
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(vertical = 24.dp, horizontal = 20.dp)
+        ) {
         // --- Bagian Progress ---
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -178,9 +183,12 @@ fun StudyProgressScreen() {
         }
     }
 }
+}
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17)
 @Composable
 fun StudyProgressScreenPreview() {
-    StudyProgressScreen()
+    FinalProjectTheme {
+        StudyProgressScreen()
+    }
 }

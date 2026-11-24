@@ -27,6 +27,7 @@ import com.bintangg.finalproject.screens.Border
 import com.bintangg.finalproject.screens.Muted
 import com.bintangg.finalproject.screens.Panel
 import com.bintangg.finalproject.screens.PubBlue
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 private data class BottomNavigationItem(
     val destination: AppRoute,
@@ -85,7 +86,9 @@ fun CustomBottomNavigationBar(
 @Preview(showBackground = true, backgroundColor = 0xFF070B17)
 @Composable
 fun CustomBottomNavigationBarPreview() {
-    Row(modifier = Modifier.padding(top = 50.dp)) {
-        CustomBottomNavigationBar(currentRoute = AppRoute.DASHBOARD, onNavigate = {})
+    FinalProjectTheme {
+        Row(modifier = Modifier.padding(top = 50.dp)) {
+            CustomBottomNavigationBar(currentRoute = AppRoute.DASHBOARD, onNavigate = {})
+        }
     }
 }

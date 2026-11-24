@@ -35,6 +35,7 @@ import com.bintangg.finalproject.screens.Blue
 import com.bintangg.finalproject.screens.Border
 import com.bintangg.finalproject.screens.MainText
 import com.bintangg.finalproject.screens.Panel
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,7 +98,7 @@ fun TopAppBarApp(
 )
 @Composable
 fun WelcomeTopAppBarPreview() {
-    MaterialTheme {
+    FinalProjectTheme {
         TopAppBarApp(
             modifier = Modifier.fillMaxWidth(),
             onSettingsClick = {}

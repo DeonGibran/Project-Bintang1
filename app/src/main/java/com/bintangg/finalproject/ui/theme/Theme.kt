@@ -22,7 +22,14 @@ private val AppColorScheme = darkColorScheme(
     onSurface = DarkMainText,
     surfaceVariant = DarkPanel2,
     onSurfaceVariant = DarkMuted,
-    outline = DarkBorder
+    surfaceTint = Color.Transparent,
+    surfaceContainer = DarkPanel,
+    surfaceContainerLow = DarkAppBg,
+    surfaceContainerLowest = DarkAppBg,
+    surfaceContainerHigh = DarkPanel2,
+    surfaceContainerHighest = DarkPanel2,
+    outline = DarkBorder,
+    outlineVariant = DarkBorder
 )
 
 @Composable

@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,6 +51,7 @@ import com.bintangg.finalproject.components.CustomInputField
 import com.bintangg.finalproject.components.PriorityBox
 import com.bintangg.finalproject.data.Task
 import com.bintangg.finalproject.data.TaskRepository
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 import kotlinx.coroutines.launch
 
 // --- Palet Warna (Kompatibilitas Backward) ---
@@ -70,25 +72,29 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
     var isSaving by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(OverlayDark)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppBg
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .background(
-                    color = Panel,
-                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                )
-                .border(
-                    BorderStroke(1.dp, Border),
-                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                )
-                .padding(horizontal = 24.dp, vertical = 16.dp)
+                .fillMaxSize()
+                .background(OverlayDark)
         ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .background(
+                        color = Panel,
+                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                    )
+                    .border(
+                        BorderStroke(1.dp, Border),
+                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                    )
+                    .padding(horizontal = 24.dp, vertical = 16.dp)
+            ) {
             // Drag Handle
             Box(
                 modifier = Modifier
@@ -245,9 +251,12 @@ fun AddTaskBottomSheetScreen(onBack: () -> Unit) {
         }
     }
 }
+}
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17)
 @Composable
 fun AddTaskBottomSheetScreenPreview() {
-    AddTaskBottomSheetScreen(onBack = {})
+    FinalProjectTheme {
+        AddTaskBottomSheetScreen(onBack = {})
+    }
 }

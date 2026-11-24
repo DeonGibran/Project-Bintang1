@@ -34,6 +34,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bintangg.finalproject.ui.theme.FinalProjectTheme
 
 val PrimaryIndigo = Purple
 val LightIndigoBg = PubBlue
@@ -530,8 +531,10 @@ fun PasswordStrengthIndicator(password: String) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF070B17, showSystemUi = true)
 @Composable
 fun CreateAccountScreenPreview() {
-    CreateAccountScreen(onLoginClicked = {})
+    FinalProjectTheme {
+        CreateAccountScreen(onLoginClicked = {})
+    }
 }

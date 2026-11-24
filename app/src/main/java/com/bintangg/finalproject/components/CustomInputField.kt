@@ -69,7 +69,10 @@ fun CustomInputField(
                 unfocusedBorderColor = Border,
                 focusedBorderColor = Blue,
                 unfocusedContainerColor = Panel2,
-                focusedContainerColor = Panel2
+                focusedContainerColor = Panel2,
+                focusedTextColor = MainText,
+                unfocusedTextColor = MainText,
+                cursorColor = Blue
             )
         )
     }

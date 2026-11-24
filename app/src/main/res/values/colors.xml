@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Dark Dashboard Palette -->
+    <color name="dark_app_bg">#FF070B17</color>
+    <color name="dark_panel">#FF10192A</color>
+    <color name="dark_panel2">#FF1A2638</color>
+    <color name="dark_border">#FF273449</color>
 </resources>
